@@ -1,7 +1,11 @@
+require "bullet"
 player = {}
 
+
 function player.load()
+player.bullDir = { x = 0, y = 0} --store player direction in table
 player.x = 480
+--player.chances = 5 -- basically the amount of times you can feed
 player.y = 416
 player.xvel = 0
 player.yvel = 0
@@ -26,6 +30,7 @@ player.hit = 0
 end
 
 function player.update(dt)
+  --update food chances over time
 player.phys(dt)
 player.move()
 player.xcollide()
@@ -82,9 +87,11 @@ end
 
 function player.move()
 if love.keyboard.isDown("a") then
+  player.bullDir.x = -1 --testing only in x axis for now
 player.xvel = -100
 player.dir = "left"
 elseif love.keyboard.isDown("d") then
+player.bullDir.x = 1 -- waiting on map to be finished to implement y axis
 player.xvel = 100
 player.dir = "right"
 else
@@ -95,6 +102,13 @@ player.y = player.y - 10
 player.yvel = -200
 fall = true
 end
+end
+
+
+function player.fire()
+  if love.keyboard.isDown("f") then
+    bullet.fire()
+  end
 end
 
 function player.xcollide()
@@ -136,4 +150,3 @@ player.fall = true
 
 end
 end
-
