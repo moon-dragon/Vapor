@@ -110,11 +110,9 @@ timer = 0
 delay = 0.5 -- delay between bullets
 function player.fire(dt)
 	timer = timer + dt
-    if timer == 0 or timer >= delay then
-    	if love.keyboard.isDown("f") then
-        	timer = 0
-        	bullet.fire()
-        end
+    if (timer == 0 or timer >= delay) and love.keyboard.isDown("f") then
+    	timer = 0
+    	bullet.fire()
     end
 end
 
