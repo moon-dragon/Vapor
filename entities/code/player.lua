@@ -33,7 +33,7 @@ function player.update(dt)
 	--update food chances over time
 	player.phys(dt)
 	player.move()
-	player.fire()
+	player.fire(dt)
 	player.xcollide()
 	player.ycollide(dt)
 	player.dyingAndStuff()
@@ -106,11 +106,16 @@ function player.move()
 	end
 end
 
-
-function player.fire()
-	if love.keyboard.isDown("f") then
-		bullet.fire()
-	end
+timer = 0
+delay = 0.5 -- delay between bullets
+function player.fire(dt)
+	timer = timer + dt
+    if timer == 0 or timer >= delay then
+    	if love.keyboard.isDown("f") then
+        	timer = 0
+        	bullet.fire()
+        end
+    end
 end
 
 function player.xcollide()

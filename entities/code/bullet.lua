@@ -4,7 +4,7 @@ bullet = {}
 bulletSpeed = 0
 
 function bullet.load()
-	bulletSpeed = 100
+	bulletSpeed = 200
 end
   
 function bullet.draw()
