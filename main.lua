@@ -6,6 +6,7 @@ require ("entities.code.TestEnt")
 function love.load()
 	map.load()
 	player.load()
+	bullet.load()
 	testent.load()
 end
 
