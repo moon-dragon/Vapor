@@ -21,8 +21,8 @@ function bullet.update(dt)
 end
 
 function bullet.fire()
-		local startX = player.x --+ player.width / 2
-		local startY = player.y --+ player.height / 2
- 
-		table.insert(bullet, {x = startX, y = startY, dx = player.bullDir.x * bulletSpeed, dy = player.bullDir.y * bulletSpeed})
+	local startX = player.x --+ player.width / 2
+	local startY = player.y --+ player.height / 2
+
+	table.insert(bullet, {x = startX, y = startY, dx = player.bullDir.x * bulletSpeed, dy = player.bullDir.y * bulletSpeed})
 end

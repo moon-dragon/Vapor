@@ -13,12 +13,14 @@ end
 function love.update(dt)
 	map.update()
 	player.update(dt)
+	bullet.update(dt)
 	testent.update(dt)
 end
 
 function love.draw()
 	map.draw()
 	player.draw()
+	bullet.draw()
 	testent.draw()
 end
 

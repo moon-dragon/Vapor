@@ -3,7 +3,7 @@ player = {}
 
 
 function player.load()
-	player.bullDir = { x = 0, y = 0} --store player direction in table
+	player.bullDir = {x = 0, y = 0} --store player direction in table
 	player.x = 480
 	--player.chances = 5 -- basically the amount of times you can feed
 	player.y = 416
@@ -110,46 +110,42 @@ end
 function player.fire()
 	if love.keyboard.isDown("f") then
 		bullet.fire()
-		print("pew pew")
 	end
 end
 
 function player.xcollide()
+	if player.xvel > 0 then
+		player.px = math.ceil((player.x + 20)/32)
+	elseif player.xvel < 0 then
+		player.px = math.ceil(player.x/32) 
+	else
+		player.prex = 0
+	end
 
-if player.xvel > 0 then
- player.px = math.ceil((player.x + 20)/32)
-elseif player.xvel < 0 then
-player.px = math.ceil(player.x/32) 
-else
-player.prex = 0
-end
-
-if TileTable[player.py][player.px] ~= 3 and TileTable[player.py][player.px] ~= 6 then
-player.xvel = 0
-end
-
+	if TileTable[player.py][player.px] ~= 3 and TileTable[player.py][player.px] ~= 6 then
+		player.xvel = 0
+	end
 end
 
 function player.ycollide(dt)
-player.py = math.ceil(player.y/32)
-if (TileTable[player.py + 1][math.ceil(player.x/32)] == 3 and TileTable[player.py + 1][math.ceil((player.x + 20)/32)] == 3) or (TileTable[player.py + 1][math.ceil(player.x/32)] == 6 and TileTable[player.py + 1][math.ceil((player.x + 20)/32)] == 6) or player.health <= 0 then
-player.yvel = player.yvel + 300 * dt
-else
-if player.yvel > 350 then
-local bf = player.health
-player.health = player.health - ((player.yvel - 350)/2)
-print (bf - player.health)
-player.hit = bf - player.health
-end
-player.yvel = 0
-fall = false
-end
+	player.py = math.ceil(player.y/32)
+	if (TileTable[player.py + 1][math.ceil(player.x/32)] == 3 and TileTable[player.py + 1][math.ceil((player.x + 20)/32)] == 3) or (TileTable[player.py + 1][math.ceil(player.x/32)] == 6 and TileTable[player.py + 1][math.ceil((player.x + 20)/32)] == 6) or player.health <= 0 then
+		player.yvel = player.yvel + 300 * dt
+	else
+		if player.yvel > 350 then
+			local bf = player.health
+			player.health = player.health - ((player.yvel - 350)/2)
+			print (bf - player.health)
+			player.hit = bf - player.health
+		end
+		player.yvel = 0
+		fall = false
+	end
 end
 
 function player.dyingAndStuff()
-if player.health <= 0 then
-print("The player has died! Halting execution . . . ")
-player.fall = true
-
-end
+	if player.health <= 0 then
+		print("The player has died! Halting execution . . . ")
+		player.fall = true
+	end
 end
