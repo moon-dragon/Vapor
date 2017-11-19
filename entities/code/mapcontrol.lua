@@ -1,6 +1,6 @@
 map = {}
 function map.load()
-Tileset = love.graphics.newImage("Tilemap.png")
+Tileset = love.graphics.newImage('entities/img/Tilemap.png')
 	TileW, TileH = 32,32
 	tilesetW, tilesetH = Tileset:getWidth(), Tileset:getHeight()
 	Quads = {}

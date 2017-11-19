@@ -1,4 +1,4 @@
-require "bullet"
+require ("entities.code.bullet")
 player = {}
 
 
@@ -11,19 +11,19 @@ player.xvel = 0
 player.yvel = 0
 player.px = 15
 player.py = 14
-player.bloodscreen = love.graphics.newImage("DeathThing.png")
+player.bloodscreen = love.graphics.newImage("entities/img/DeathThing.png")
 fall = true
 player.health = 100
 player.dir = "right"
 player.motion = {}
-player.motion.stand = love.graphics.newImage("Guy.png")
-player.motion.run1 = love.graphics.newImage("GuyRunA.png")
-player.motion.run2 = love.graphics.newImage("GuyRunB.png")
-player.motion.fall = love.graphics.newImage("GuyFall.png")
-player.motion.standL = love.graphics.newImage("GuyL.png")
-player.motion.run1L = love.graphics.newImage("GuyRunAL.png")
-player.motion.run2L = love.graphics.newImage("GuyRunBL.png")
-player.motion.fallL = love.graphics.newImage("GuyFallL.png")
+player.motion.stand = love.graphics.newImage("entities/img/Guy.png")
+player.motion.run1 = love.graphics.newImage("entities/img/GuyRunA.png")
+player.motion.run2 = love.graphics.newImage("entities/img/GuyRunB.png")
+player.motion.fall = love.graphics.newImage("entities/img/GuyFall.png")
+player.motion.standL = love.graphics.newImage("entities/img/GuyL.png")
+player.motion.run1L = love.graphics.newImage("entities/img/GuyRunAL.png")
+player.motion.run2L = love.graphics.newImage("entities/img/GuyRunBL.png")
+player.motion.fallL = love.graphics.newImage("entities/img/GuyFallL.png")
 player.currentA = player.motion.stand
 player.Stime = love.timer.getTime()
 player.hit = 0
