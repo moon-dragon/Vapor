@@ -3,6 +3,7 @@ player = {}
 
 
 function player.load()
+	bullet.load()
 	player.bullDir = {x = 0, y = 0} --store player direction in table
 	player.x = 480
 	--player.chances = 5 -- basically the amount of times you can feed
@@ -34,12 +35,14 @@ function player.update(dt)
 	player.phys(dt)
 	player.move()
 	player.fire(dt)
-	player.xcollide()
+	bullet.update(dt)
+--[[	player.xcollide()
 	player.ycollide(dt)
-	player.dyingAndStuff()
+	player.dyingAndStuff()--]]
 end
 
 function player.draw()
+	bullet.draw()
 	love.graphics.setColor(25,25,25)
 	love.graphics.print("Health: " .. player.health, 50, 50)
 
@@ -89,25 +92,56 @@ end
 
 function player.move()
 	if love.keyboard.isDown("a") then
-		player.bullDir.x = -1 --testing only in x axis for now
+		player.bullDir.x = -1
+		player.bullDir.y = 0
 		player.xvel = -100
 		player.dir = "left"
 	elseif love.keyboard.isDown("d") then
-		player.bullDir.x = 1 -- waiting on map to be finished to implement y axis
+		player.bullDir.x = 1 
+		player.bullDir.y = 0
 		player.xvel = 100
 		player.dir = "right"
 	else
 		player.xvel = 0
 	end
-	if love.keyboard.isDown("w") and fall == false then
-		player.y = player.y - 10
-		player.yvel = -200
-		fall = true
+	
+	if love.keyboard.isDown("w") then
+		player.bullDir.y = -1
+		player.bullDir.x = 0
+		player.yvel = -100
+		player.dir = "up"
+	elseif love.keyboard.isDown("s") then
+		player.bullDir.y = 1
+		player.bullDir.x = 0
+		player.yvel = 100
+		player.dir = "down"
+	else
+		player.yvel = 0
+	end
+
+	-- diagonal bullet direction
+	if love.keyboard.isDown("a") and love.keyboard.isDown("w") then
+		player.bullDir.x = -1
+		player.bullDir.y = -1
+	end
+	if love.keyboard.isDown("d") and love.keyboard.isDown("w") then
+		player.bullDir.x = 1 
+		player.bullDir.y = -1
+	end
+	if love.keyboard.isDown("a") and love.keyboard.isDown("s") then
+		player.bullDir.x = -1
+		player.bullDir.y = 1
+	end
+	if love.keyboard.isDown("d") and love.keyboard.isDown("s") then
+		player.bullDir.x = 1 
+		player.bullDir.y = 1
 	end
 end
 
+
+-- delay between bullets
 timer = 0
-delay = 0.5 -- delay between bullets
+delay = 0.3
 function player.fire(dt)
 	timer = timer + dt
     if (timer == 0 or timer >= delay) and love.keyboard.isDown("f") then
@@ -116,7 +150,7 @@ function player.fire(dt)
     end
 end
 
-function player.xcollide()
+--[[function player.xcollide()
 	if player.xvel > 0 then
 		player.px = math.ceil((player.x + 20)/32)
 	elseif player.xvel < 0 then
@@ -151,4 +185,4 @@ function player.dyingAndStuff()
 		print("The player has died! Halting execution . . . ")
 		player.fall = true
 	end
-end
+end--]]

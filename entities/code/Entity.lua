@@ -17,18 +17,7 @@ end
 
 --in order for an entity to update, they must pass entity.update to love.update themselves
 function entity.update(table, dt)
-	--the fall formula for the player copied and pasted here with only the variables changed
-	if table ~= nil then
-		if table.phys == true then
-		local py = math.ceil(table.y/32)
-			if (TileTable[py + 1][math.ceil(table.x/32)] == 3 and TileTable[py + 1][math.ceil((table.x + 20)/32)] == 3) or (TileTable[py + 1][math.ceil(table.x/32)] == 6 and TileTable[py + 1][math.ceil((table.x + 20)/32)] == 6) then
-			table.yvel = table.yvel + 300 * dt
-			else
-			table.yvel = 0
-			end
-		table.y = table.y + table.yvel * dt
-		end
-	end
+	
 end
 
 --This can be used to easily draw the entities
