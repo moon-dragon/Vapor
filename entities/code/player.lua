@@ -7,22 +7,36 @@ function player.load()
 	-- Load BELLHOP'S animations
 	player.idleLeft = IdleLeftAnimation()
 	player.idleRight = IdleRightAnimation()
+	player.walkingLeft = WalkingLeftAnimation()
+	player.walkingRight = WalkingRightAnimation()
 
 	-- Starting position of player (TEMPORARY)
-	player.x = love.graphics.getWidth() / 2
-	player.y = love.graphics.getHeight() / 2
+	player.x = 1900
+	player.y = 8500
 
 	-- Curren animation of the player
 	player.current = player.idleLeft
 
+	-- Keep track of the last direction faced
+	player.direction = "left"
+
+	-- Check if the character is moving
+	player.isWalking = true
+
 	-- The player's speed (TEMPORARY)
-	player.speed = 1000
+	player.speed = 500
 
 	-- Animation current time
 	animation.currentTime = 0
 
-	-- Direction of the player
-	player.direction = "left"
+	-- Animation duration
+	animation.currentDuration = 0
+
+	-- Walking animation duration
+	animation.idleDuration = 1
+	
+	-- Idle animation duration
+	animation.wakingDuration = 6
 
 
 end
@@ -31,33 +45,83 @@ function player.update(dt)
 	-- Update currentTime of the animation
 	animation.currentTime = animation.currentTime + dt
 
-	-- Player movement
-	if love.keyboard.isDown('d') then 				-- Right
+	----- PLAYER MOVEMENT -----
+
+	-- RIGHT direction
+	if love.keyboard.isDown('d') then 				
 		player.x = player.x + (player.speed * dt)
-		-- player.direction = "right"
-	elseif love.keyboard.isDown('a') then 			-- Left
+		-- Plays the WALKING RIGHT animation
+		player.current = player.walkingRight
+		player.direction = "right"
+
+		-- Change the duration of each sprite in the walking animation
+		animation.currentDuration = animation.wakingDuration
+	-- LEFT direction
+	elseif love.keyboard.isDown('a') then 			
 		player.x = player.x - (player.speed * dt)
-		-- player.direction = "left"
+		-- Plays the WALKING LEFT animation
+		player.current = player.walkingLeft
+		player.direction = "left"
+
+		-- Change the duration of each sprite in the walking animation
+		animation.currentDuration = animation.wakingDuration
+	else
+		-- Determine which idle animation to execute depending on the last direction faced
+		if player.direction == "left" then
+			player.current = player.idleLeft
+
+			-- Change the duration of each sprite in the idle animation
+			animation.currentDuration = animation.idleDuration
+		elseif player.direction == "right" then
+			player.current = player.idleRight
+
+			-- Change the duration of each sprite in the idle animation
+			animation.currentDuration = animation.idleDuration
+		end 
 	end
 
-	if love.keyboard.isDown('w') then 				-- Up
+	-- UP movement
+	if love.keyboard.isDown('w') then
 		player.y = player.y - (player.speed * dt)
-	elseif love.keyboard.isDown('s') then 			-- Down
+
+		-- Determine which walking animation to play
+		if player.direction == "left" then
+			-- Plays the WALKING LEFT animation
+			player.current = player.walkingLeft
+			
+		elseif player.direction == "right" then
+			-- Plays the WALKING RIGHT animation
+			player.current = player.walkingRight
+		end
+
+		-- Change the duration of each sprite in the walking animation
+		animation.currentDuration = animation.wakingDuration
+	-- DOWN movement
+	elseif love.keyboard.isDown('s') then
 		player.y = player.y + (player.speed * dt)
+
+		-- Determine which walking animation to play
+		if player.direction == "left" then
+			-- Plays the WALKING LEFT animation
+			player.current = player.walkingLeft
+			
+		elseif player.direction == "right" then
+			-- Plays the WALKING RIGHT animation
+			player.current = player.walkingRight
+		end
+
+		-- Change the duration of each sprite in the walking animation
+		animation.currentDuration = animation.wakingDuration
 	end
+
+	---------------------------
 
 end
 
 function player.draw()
-
-
-	-- if player.direction == "left" then
-	-- 	player.current = player.idleRight
-	-- else
-	-- 	player.current = player.idleLeft
-	-- end
-
-	local spriteNum = math.floor(animation.currentTime % #player.current) + 1
+	-- Determines the index of the next animation
+	local spriteNum = math.floor(animation.currentTime * animation.currentDuration % #player.current) + 1
+	
 	-- Draws the player
 	love.graphics.draw(player.current[spriteNum], player.x, player.y)
 
@@ -65,8 +129,9 @@ function player.draw()
 
 end
 
+------ HELPER FUNCTION  ------
 
--- HELPER FUNCTIONS ----
+---- LOAD ALL ANIMATIONS  ----
 function IdleLeftAnimation()
 	local idleLeft =
 	{
@@ -84,6 +149,41 @@ function IdleRightAnimation()
 		image('entities/img/bellhop/idleRight2.png'),
 		image('entities/img/bellhop/idleRight3.png')
 	}
+	return idleRight
+end
+
+function WalkingLeftAnimation()
+	local walkingLeft =
+	{
+		image('entities/img/bellhop/walkingLeft1.png'),
+		image('entities/img/bellhop/walkingLeft2.png'),
+		image('entities/img/bellhop/walkingLeft3.png'),
+		image('entities/img/bellhop/walkingLeft4.png'),
+		image('entities/img/bellhop/walkingLeft5.png'),
+		image('entities/img/bellhop/walkingLeft6.png'),
+		image('entities/img/bellhop/walkingLeft7.png'),
+		image('entities/img/bellhop/walkingLeft8.png'),
+		image('entities/img/bellhop/walkingLeft9.png'),
+		image('entities/img/bellhop/walkingLeft10.png')
+	}
+	return walkingLeft
+end
+
+function WalkingRightAnimation()
+	local walkingRight =
+	{
+		image('entities/img/bellhop/walkingRight1.png'),
+		image('entities/img/bellhop/walkingRight2.png'),
+		image('entities/img/bellhop/walkingRight3.png'),
+		image('entities/img/bellhop/walkingRight4.png'),
+		image('entities/img/bellhop/walkingRight5.png'),
+		image('entities/img/bellhop/walkingRight6.png'),
+		image('entities/img/bellhop/walkingRight7.png'),
+		image('entities/img/bellhop/walkingRight8.png'),
+		image('entities/img/bellhop/walkingRight9.png'),
+		image('entities/img/bellhop/walkingRight10.png')
+	}
+	return walkingRight
 end
 
 -- require ("entities.code.bullet")
