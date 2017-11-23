@@ -1,4 +1,5 @@
 --this script will just define the functions to be used for entities
+
 entity = {}
 --ents is a count of how many entities have been spawned
 ents = 0

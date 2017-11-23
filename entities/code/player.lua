@@ -17,14 +17,14 @@ function player.load()
 	player.health = 100
 	player.dir = "right"
 	player.motion = {}
-	player.motion.stand = love.graphics.newImage("entities/img/Guy.png")
-	player.motion.run1 = love.graphics.newImage("entities/img/GuyRunA.png")
-	player.motion.run2 = love.graphics.newImage("entities/img/GuyRunB.png")
-	player.motion.fall = love.graphics.newImage("entities/img/GuyFall.png")
-	player.motion.standL = love.graphics.newImage("entities/img/GuyL.png")
-	player.motion.run1L = love.graphics.newImage("entities/img/GuyRunAL.png")
-	player.motion.run2L = love.graphics.newImage("entities/img/GuyRunBL.png")
-	player.motion.fallL = love.graphics.newImage("entities/img/GuyFallL.png")
+	player.motion.stand = love.graphics.newImage("entities/img/bellhop/idleRight1.png")
+	player.motion.run1 = love.graphics.newImage("entities/img/bellhop/walkingRight3.png")
+	player.motion.run2 = love.graphics.newImage("entities/img/bellhop/walkingRight4.png")
+	player.motion.fall = love.graphics.newImage("entities/img/bellhop/idleRight1.png") --have to use idleRight since we don't have a walking up or down PNG
+	player.motion.standL = love.graphics.newImage("entities/img/bellhop/idleLeft1.png")
+	player.motion.run1L = love.graphics.newImage("entities/img/bellhop/walkingLeft3.png")
+	player.motion.run2L = love.graphics.newImage("entities/img/bellhop/walkingLeft4.png")
+	player.motion.fallL = love.graphics.newImage("entities/img/bellhop/idleLeft1.png")
 	player.currentA = player.motion.stand
 	player.Stime = love.timer.getTime()
 	player.hit = 0
@@ -94,12 +94,12 @@ function player.move()
 	if love.keyboard.isDown("a") then
 		player.bullDir.x = -1
 		player.bullDir.y = 0
-		player.xvel = -100
+		player.xvel = -1000
 		player.dir = "left"
 	elseif love.keyboard.isDown("d") then
 		player.bullDir.x = 1 
 		player.bullDir.y = 0
-		player.xvel = 100
+		player.xvel = 1000
 		player.dir = "right"
 	else
 		player.xvel = 0
@@ -108,12 +108,12 @@ function player.move()
 	if love.keyboard.isDown("w") then
 		player.bullDir.y = -1
 		player.bullDir.x = 0
-		player.yvel = -100
+		player.yvel = -1000
 		player.dir = "up"
 	elseif love.keyboard.isDown("s") then
 		player.bullDir.y = 1
 		player.bullDir.x = 0
-		player.yvel = 100
+		player.yvel = 1000
 		player.dir = "down"
 	else
 		player.yvel = 0
