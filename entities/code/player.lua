@@ -11,8 +11,10 @@ function player.load()
 	player.walkingRight = WalkingRightAnimation()
 
 	-- Starting position of player (TEMPORARY)
-	player.x = 1900
-	player.y = 8500
+	-- player.x = 1900
+	-- player.y = 8500
+	player.x = 0
+	player.y = 0
 
 	-- Curren animation of the player
 	player.current = player.idleLeft

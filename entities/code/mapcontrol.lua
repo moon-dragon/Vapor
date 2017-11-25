@@ -12,28 +12,13 @@ function map.load()
     mapHeight, mapWidth = mansion.height, mansion.width
 
     -- The HEIGHT and WIDTH of a tile
-    tileHeight, tileWidth = 192, 192
+    tileHeight, tileWidth = mansion.tilesets[1].tileheight, mansion.tilesets[1].tilewidth
 
     -- WIDTH and HEIGHT of the tileset
-    local tilesetHeight, tilesetWidth = tileset:getHeight(), tileset:getWidth()
+    tilesetHeight, tilesetWidth = mansion.tilesets[1].imageheight, mansion.tilesets[1].imagewidth
 
     -- Generate each tiles
-    local quad = love.graphics.newQuad
-    quads = 
-    {
-        -- Format: x, y, tileWidth, TileHeight, TilesetWidth, TilesetHeight
-        --         x: x coordinate of the targeted tile
-        --         y: y coordinate of the targeted tile
-        quad(  0,   0, 192, 192, tilesetWidth, tilesetHeight),
-        quad(192,   0, 192, 192, tilesetWidth, tilesetHeight),
-        quad(384,   0, 192, 192, tilesetWidth, tilesetHeight),
-        quad(  0, 192, 192, 192, tilesetWidth, tilesetHeight),
-        quad(192, 192, 192, 192, tilesetWidth, tilesetHeight),
-        quad(384, 192, 192, 192, tilesetWidth, tilesetHeight),
-        quad(  0, 384, 192, 192, tilesetWidth, tilesetHeight),
-        quad(192, 384, 192, 192, tilesetWidth, tilesetHeight),
-        quad(384, 384, 192, 192, tilesetWidth, tilesetHeight)
-    }
+    quads = generateTileset()
 
     -- The DATA info for the map's 1ST LAYER
     tileTable = mansion.layers[1].data
@@ -45,6 +30,9 @@ function map.update(dt)
 end
 
 function map.draw()
+
+    -- scale graphics to zoom out
+    love.graphics.scale(0.15)
 
     -- Renders the map
     for i = 1, #tileTable do
@@ -58,6 +46,25 @@ function map.draw()
 
 end
 
+
+------ HELPER FUNCTION ------
+
+-- Put each tile a tileset in a table of QUADS
+function generateTileset()
+    local quad = love.graphics.newQuad
+    local quads = {}
+    local posx, posy = 0, 0
+    for x = 1, tilesetHeight/tileHeight do
+        for y = 1, tilesetWidth/tileWidth do
+            table.insert(quads, quad(posx, posy, tileWidth, tileHeight, tilesetWidth, tilesetHeight))
+            posx = posx + tileWidth
+        end
+        posy = posy + tileHeight
+        posx = 0
+    end
+    return quads
+
+end
 
 
 
