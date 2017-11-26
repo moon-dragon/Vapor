@@ -14,25 +14,27 @@ function entity.spawn(table, x, y, width, height)
   newent.width = width
   newent.height = height
 	newent.ID = ents
-  --newent.agitation = 0 
+  newent.agitation = 3
+  --print ("agitation of frankenstein is " ..newent.agitation)
 	print ("ID of entity just spawned just now is " .. newent.ID)
 	ents = ents + 1
 	return newent
 end
---[[
-function entity.incrementAgit()
-  if(newent.agitation <= 4) then
-    newent.agitation = newent.agitation + 1
+
+function entity.incrementAgit(table)
+  if(table.agitation <= 4) then
+    table.agitation = table.agitation + 1
   end
 end
 
 
-function entity.decrementAgit()
-  if(newent.agitation > 0) then
-    newent.agitation = newent.agitation - 1
+function entity.decrementAgit(table)
+  if(table.agitation > 0) then
+    table.agitation = table.agitation - 1
+    --print ("agitation of frankenstein is " ..table.agitation)
   end
 end
-]]
+
 
 function entity.getEntities()
   return entities

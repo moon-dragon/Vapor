@@ -23,7 +23,7 @@ function bullet.update(dt)
       --the loop is iterating through the proper values of franken's x and y
       if(bullet.collides(v,k)) then
         print("hit")
-        --k.decrementAgit()
+        entity.decrementAgit(k)
         table.remove(bullet,i) --automatically undraw?
       end
     end
