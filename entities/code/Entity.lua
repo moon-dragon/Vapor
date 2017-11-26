@@ -1,20 +1,43 @@
 --this script will just define the functions to be used for entities
 
 entity = {}
+entities = {} --all entities that currently exist in the map
 --ents is a count of how many entities have been spawned
 ents = 0
 
-function entity.spawn(table, x, y, img)
+function entity.spawn(table, x, y, width, height)
 	local newent = table
 	newent.x = x
 	newent.y = y
 	newent.xvel = 0
 	newent.yvel = 0
+  newent.width = width
+  newent.height = height
 	newent.ID = ents
+  --newent.agitation = 0 
 	print ("ID of entity just spawned just now is " .. newent.ID)
 	ents = ents + 1
 	return newent
 end
+--[[
+function entity.incrementAgit()
+  if(newent.agitation <= 4) then
+    newent.agitation = newent.agitation + 1
+  end
+end
+
+
+function entity.decrementAgit()
+  if(newent.agitation > 0) then
+    newent.agitation = newent.agitation - 1
+  end
+end
+]]
+
+function entity.getEntities()
+  return entities
+end
+
 
 --in order for an entity to update, they must pass entity.update to love.update themselves
 function entity.update(table, dt)

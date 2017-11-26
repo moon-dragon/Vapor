@@ -4,12 +4,12 @@ bullet = {}
 bulletSpeed = 0
 
 function bullet.load()
-	bulletSpeed = 200
+	bulletSpeed = 400
 end
   
 function bullet.draw()
 	for i,v in ipairs(bullet) do
-		love.graphics.circle("fill", v.x, v.y, 60)
+		love.graphics.rectangle("fill", v.x, v.y, 50,50)
 	end
 end
 
@@ -17,17 +17,21 @@ function bullet.update(dt)
 	for i,v in ipairs(bullet) do
 		v.x = v.x + (v.dx * dt)
 		v.y = v.y + (v.dy * dt)
-    for j,k in ipairs(entities) do
-      print("2nd for")
+    for j,k in ipairs(entity.getEntities()) do --how is it iterating through entities? how does it know where it is or what im talking about
+      --print("2nd for")
+      --print(k.x , k.y) --prints 256,256 so frankenstein is inserting itself to entities table properly, and
+      --the loop is iterating through the proper values of franken's x and y
       if(bullet.collides(v,k)) then
         print("hit")
+        --k.decrementAgit()
+        --table.remove(i,v) --automatically undraw?
       end
     end
 	end
 end
 
-function bullet.collides(one,two)
-  print("collides")
+function bullet.collides(one,two) --edited to be simpler, only take account of the object's x/y
+  --print("collides")
   return (
         one.x <= two.x + two.width and
         one.x + one.width >= two.x and
@@ -41,5 +45,5 @@ function bullet.fire()
 	local startX = player.x --+ player.width / 2
 	local startY = player.y --+ player.height / 2
 
-	table.insert(bullet, {x = startX, y = startY, dx = player.bullDir.x * bulletSpeed, dy = player.bullDir.y * bulletSpeed})
+	table.insert(bullet, {x = startX, y = startY, dx = player.bullDir.x * bulletSpeed, dy = player.bullDir.y * bulletSpeed, width = 50, height = 50})
 end
