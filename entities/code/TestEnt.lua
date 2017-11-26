@@ -22,10 +22,12 @@ end
 
 function testent.update(dt)
 	entity.update(franken, dt)
-	if entity.checkForMouseDown(franken) == true then
+	--[[
+  if entity.checkForMouseDown(franken) == true then
 		franken = nil
 		print("It's gone!")
 	end
+  ]]
 end
 
 function testent.draw()
