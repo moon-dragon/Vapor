@@ -24,7 +24,7 @@ function bullet.update(dt)
       if(bullet.collides(v,k)) then
         print("hit")
         --k.decrementAgit()
-        --table.remove(i,v) --automatically undraw?
+        table.remove(bullet,i) --automatically undraw?
       end
     end
 	end
