@@ -1,50 +1,97 @@
 map = {}
 
 function map.load()
-    local tmap = require("entities/map/map")
 
-    Tileset = love.graphics.newImage('entities/map/dungeon.png')
-    MapW, MapH = tmap.width, tmap.height
-	TileW, TileH = 192, 192
-	tilesetW, tilesetH = Tileset:getWidth(), Tileset:getHeight()
-	Quads = {}
-	Quads [1] = love.graphics.newQuad (0,0,TileW, TileH, tilesetW, tilesetH)
-	Quads [2] = love.graphics.newQuad (192,0,TileW, TileH, tilesetW, tilesetH)
-	Quads [3] = love.graphics.newQuad (384,0,TileW,TileH,tilesetW,tilesetH)
-    Quads [4] = love.graphics.newQuad (0,192,TileW, TileH, tilesetW, tilesetH)
-    Quads [5] = love.graphics.newQuad (192,192,TileW, TileH, tilesetW, tilesetH)
-    Quads [6] = love.graphics.newQuad (384,192,TileW,TileH,tilesetW,tilesetH)
-    Quads [7] = love.graphics.newQuad (0,384,TileW, TileH, tilesetW, tilesetH)
-    Quads [8] = love.graphics.newQuad (192,384,TileW, TileH, tilesetW, tilesetH)
-    Quads [9] = love.graphics.newQuad (384,384,TileW,TileH,tilesetW,tilesetH)
+    -- Access the generated code for the map
+    local mansion = require("entities/map/map")
 
-    TileTable = tmap.layers[1].data
-	
+    -- Access the map tileset
+    tileset = love.graphics.newImage("entities/map/purple_dungeon.png")
+
+    -- The number of tiles that makes up the HEIGHT and the WIDTH
+    mapHeight, mapWidth = mansion.height, mansion.width
+
+    -- The HEIGHT and WIDTH of a tile
+    tileHeight, tileWidth = mansion.tilesets[1].tileheight, mansion.tilesets[1].tilewidth
+
+    -- WIDTH and HEIGHT of the tileset
+    tilesetHeight, tilesetWidth = mansion.tilesets[1].imageheight, mansion.tilesets[1].imagewidth
+
+    -- Generate each tiles
+    quads = generateTileset(tileWidth, tileHeight, tilesetWidth, tilesetHeight)
+
+    -- The DATA info for the map's 1ST LAYER
+    mansionMiddleground = mansion.layers[1].data
+
+    -- The DATA info for the map's 2nd LAYER
+    mansionForeground = mansion.layers[2].data
+
+    -- List of wall objects (used for colllision)
+    mansionWallObjects = mansion.layers[3].objects
+
 end
 
-function map.update()
+function map.update(dt)
 
 end
 
-function map.draw()
-    -- scale graphics to zoom out
-    love.graphics.scale(0.15)
+-- Renders the map: MIDDLEGROUND
+function map.middleGroundDraw()
 
-    -- translate view to follow - to be implemented -
-    tx = 0
-    ty = 0
-    love.graphics.translate(tx, ty)
+    for i = 1, #mansionMiddleground do
+        local colIndex = i % mapWidth
+        if colIndex == 0 then
+            colIndex = mapWidth
+        end
+        local rowIndex = math.ceil(i / mapWidth)
+        local currentDataIndex = mansionMiddleground[i]
+        if currentDataIndex ~= nil and currentDataIndex ~= 0 then
+            love.graphics.draw(tileset, quads[currentDataIndex], (colIndex - 1) * tileWidth, (rowIndex - 1) * tileHeight)
+        end
 
-    -- draw map data in TileTable
-    for index = 1, #TileTable do
-        local columnIndex = index % MapW
-        local rowIndex = math.ceil(index / MapW)
-        local number = TileTable[index]
-        if number ~= nil and number ~= 0 then
-            love.graphics.draw(Tileset, Quads[number], (columnIndex-1)*TileW, (rowIndex-1)*TileH)
+    end
+end
+
+
+-- Renders the map: FOREGROUND
+function map.foreGroundDraw()
+
+    for i = 1, #mansionForeground do
+        local colIndex = i % mapWidth
+        if colIndex == 0 then
+            colIndex = mapWidth
+        end
+        local rowIndex = math.ceil(i / mapWidth)
+        local currentDataIndex = mansionForeground[i]
+        if currentDataIndex ~= nil and currentDataIndex ~= 0 then
+            love.graphics.draw(tileset, quads[currentDataIndex], (colIndex - 1) * tileWidth, (rowIndex - 1) * tileHeight)
         end
     end
+end
 
+-- Renders the map: WALL COLLISION
+function map.wallObjectsDraw()
+    for i = 1, #mansionWallObjects do
+        love.graphics.rectangle("fill", mansionWallObjects[i].x, mansionWallObjects[i].y, mansionWallObjects[i].width, mansionWallObjects[i].height)
+    end
 end
 
 
+------ HELPER FUNCTION ------
+
+-- Put each tile in a tileset in a table of QUADS
+function generateTileset(tileWidth, tileHeight, tilesetWidth, tilesetHeight)
+    local quad = love.graphics.newQuad
+    local quads = {}
+    local posx, posy = 0, 0
+    for x = 1, tilesetHeight/tileHeight do
+        for y = 1, tilesetWidth/tileWidth do
+            table.insert(quads, quad(posx, posy, tileWidth, tileHeight, tilesetWidth, tilesetHeight))
+            posx = posx + tileWidth
+        end
+        posy = posy + tileHeight
+        posx = 0
+    end
+    return quads
+
+end

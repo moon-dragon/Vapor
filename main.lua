@@ -19,10 +19,19 @@ function love.update(dt)
 end
 
 function love.draw()
-	map.draw()
+	-- Makes the camera follow the player
+	love.graphics.push()
+  	love.graphics.translate(-player.x + love.graphics.getWidth() / 2, -player.y + love.graphics.getHeight() / 2)
+
+  	-- Draw everything
+	map.middleGroundDraw()
 	player.draw()
 	bullet.draw()
 	testent.draw()
+	map.foreGroundDraw()
+
+	
+	love.graphics.pop()
 end
 
 function love.event.quit()
