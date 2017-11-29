@@ -15,7 +15,7 @@ function love.update(dt)
 	player.update(dt)
 	bullet.update(dt)
 	testent.update(dt)
-  entity.globalAgit(dt)
+  	entity.globalAgit(dt)
 end
 
 function love.draw()

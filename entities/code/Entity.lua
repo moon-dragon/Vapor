@@ -6,6 +6,7 @@ entities = {} --all entities that currently exist in the map
 ents = 0
 globalAgitationTimer = 5
 
+
 function entity.spawn(table, x, y, width, height)
 	local newent = table
 	newent.x = x

@@ -4,7 +4,8 @@ animation = {}
 wall = {}
 
 local mansion = require ("entities/map/map")
-local image = love.graphics.newImage
+local anim = require ("entities/code/animation/player_anim")
+local collision = require ("entities/code/tools/collision")
 local isAWall, wallX, wallY, wallWidth, wallHeight = nil, nil, nil, nil, nil
 
 function player.load()
@@ -12,10 +13,10 @@ function player.load()
 	player.bullDir = {x = 0, y = 0} --store player direction in table
 	
 	-- Load BELLHOP'S animations
-	player.idleLeft = IdleLeftAnimation()
-	player.idleRight = IdleRightAnimation()
-	player.walkingLeft = WalkingLeftAnimation()
-	player.walkingRight = WalkingRightAnimation()
+	player.idleLeft = anim.IdleLeftAnimation()
+	player.idleRight = anim.IdleRightAnimation()
+	player.walkingLeft = anim.WalkingLeftAnimation()
+	player.walkingRight = anim.WalkingRightAnimation()
 
 	-- Starting position of player
 	player.x = mansion.layers[4].objects[1].x
@@ -145,7 +146,7 @@ function player.move(dt)
 	-- RIGHT direction
 	if love.keyboard.isDown('d') then 				
 		
-		isAWall, wallX, wallY, wallWidth, wallHeight = CollisionCheck(player.x + player.speed, player.y, player.current[1], wall.objects)
+		isAWall, wallX, wallY, wallWidth, wallHeight = collision.CollisionCheck(player.x + player.speed, player.y, player.current[1], wall.objects)
 		if not isAWall then
 			player.x = player.x + player.speed
 		else
@@ -165,7 +166,7 @@ function player.move(dt)
 	-- LEFT direction
 	elseif love.keyboard.isDown('a') then 			
 		
-		isAWall, wallX, wallY, wallWidth, wallHeight = CollisionCheck(player.x - player.speed, player.y, player.current[1], wall.objects)
+		isAWall, wallX, wallY, wallWidth, wallHeight = collision.CollisionCheck(player.x - player.speed, player.y, player.current[1], wall.objects)
 		if not isAWall then
 			player.x = player.x - player.speed
 		else
@@ -200,7 +201,7 @@ function player.move(dt)
 	-- UP movement
 	if love.keyboard.isDown('w') then
 
-		isAWall, wallX, wallY, wallWidth, wallHeight = CollisionCheck(player.x, player.y - player.speed, player.current[1], wall.objects)
+		isAWall, wallX, wallY, wallWidth, wallHeight = collision.CollisionCheck(player.x, player.y - player.speed, player.current[1], wall.objects)
 		if not isAWall then
 			player.y = player.y - player.speed
 		else
@@ -226,7 +227,7 @@ function player.move(dt)
 	-- DOWN movement
 	elseif love.keyboard.isDown('s') then
 		
-		isAWall, wallX, wallY, wallWidth, wallHeight = CollisionCheck(player.x, player.y + player.speed, player.current[1], wall.objects)
+		isAWall, wallX, wallY, wallWidth, wallHeight = collision.CollisionCheck(player.x, player.y + player.speed, player.current[1], wall.objects)
 		if not isAWall then
 			player.y = player.y + (player.speed)
 		else
@@ -313,93 +314,6 @@ function player.fire(dt)
     	bullet.fire()
     end
 end
-
------- HELPER FUNCTION  ------
-
--- Check if the two object specified is overlapping
--- Format:
--- 		x1, y1: 1st object coordinates
--- 		w1, h1: (w)idth and (h)eight of the 1st object
--- 		x2, y2: 2nd object coordinates
--- 		w2, h2: (w)idth and (h)eight of the 2nd object
-function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
-	return x1 < x2+w2 and
-	     x2 < x1+w1 and
-	     y1 < y2+h2 and 
-	     y2 < y1+h1
-end
-
--- Check if player is colliding with an object:
---  	Returns true and objects coordination and dimnesions if there's collision on the next player movement
---  	Returns false if there's no collision on the next player movement
-function CollisionCheck(playerPosX, playerPosY, playerObject, wallObjects)
-	local width, height = playerObject:getWidth(), playerObject:getHeight()
-	for i = 1, #wallObjects do
-		if CheckCollision(playerPosX, playerPosY, width, height, wallObjects[i].x, wallObjects[i].y, wallObjects[i].width, wallObjects[i].height) then
-			return true, wallObjects[i].x, wallObjects[i].y, wallObjects[i].width, wallObjects[i].height
-		end
-	end
-	return false
-end
-
----- LOAD ALL ANIMATIONS  ----
-function IdleLeftAnimation()
-	local idleLeft =
-	{
-		image('entities/img/bellhop/idleLeft1.png'),
-		image('entities/img/bellhop/idleLeft2.png'),
-		image('entities/img/bellhop/idleLeft3.png')
-	}
-	return idleLeft
-end
-
-function IdleRightAnimation()
-	local idleRight = 
-	{
-		image('entities/img/bellhop/idleRight1.png'),
-		image('entities/img/bellhop/idleRight2.png'),
-		image('entities/img/bellhop/idleRight3.png')
-	}
-	return idleRight
-end
-
-function WalkingLeftAnimation()
-	local walkingLeft =
-	{
-		image('entities/img/bellhop/walkingLeft1.png'),
-		image('entities/img/bellhop/walkingLeft2.png'),
-		image('entities/img/bellhop/walkingLeft3.png'),
-		image('entities/img/bellhop/walkingLeft4.png'),
-		image('entities/img/bellhop/walkingLeft5.png'),
-		image('entities/img/bellhop/walkingLeft6.png'),
-		image('entities/img/bellhop/walkingLeft7.png'),
-		image('entities/img/bellhop/walkingLeft8.png'),
-		image('entities/img/bellhop/walkingLeft9.png'),
-		image('entities/img/bellhop/walkingLeft10.png')
-	}
-	return walkingLeft
-end
-
-function WalkingRightAnimation()
-	local walkingRight =
-	{
-		image('entities/img/bellhop/walkingRight1.png'),
-		image('entities/img/bellhop/walkingRight2.png'),
-		image('entities/img/bellhop/walkingRight3.png'),
-		image('entities/img/bellhop/walkingRight4.png'),
-		image('entities/img/bellhop/walkingRight5.png'),
-		image('entities/img/bellhop/walkingRight6.png'),
-		image('entities/img/bellhop/walkingRight7.png'),
-		image('entities/img/bellhop/walkingRight8.png'),
-		image('entities/img/bellhop/walkingRight9.png'),
-		image('entities/img/bellhop/walkingRight10.png')
-	}
-	return walkingRight
-end
-
-
-
-
 
 --[[function player.xcollide()
 	if player.xvel > 0 then

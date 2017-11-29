@@ -29,6 +29,9 @@ function map.load()
     -- List of wall objects (used for colllision)
     mansionWallObjects = mansion.layers[3].objects
 
+    -- List of spawn objects
+    mansionSpawnPoints = mansion.layers[5].objects
+
 end
 
 function map.update(dt)
@@ -73,6 +76,13 @@ end
 function map.wallObjectsDraw()
     for i = 1, #mansionWallObjects do
         love.graphics.rectangle("fill", mansionWallObjects[i].x, mansionWallObjects[i].y, mansionWallObjects[i].width, mansionWallObjects[i].height)
+    end
+end
+
+-- Render the map: SPAWN POINTS
+function map.monsterSpawnPointsDraw()
+    for i = 1, #mansionSpawnPoints do
+        love.graphics.rectangle("fill", mansionSpawnPoints[i].x, mansionSpawnPoints[i].y, mansionSpawnPoints[i].width, mansionSpawnPoints[i].height)
     end
 end
 

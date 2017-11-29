@@ -8,7 +8,7 @@ return {
   height = 100,
   tilewidth = 96,
   tileheight = 96,
-  nextobjectid = 142,
+  nextobjectid = 153,
   properties = {},
   tilesets = {
     {
@@ -339,7 +339,7 @@ return {
           shape = "rectangle",
           x = 1344,
           y = 7260,
-          width = 671,
+          width = 672,
           height = 36,
           rotation = 0,
           visible = true,
@@ -1727,8 +1727,8 @@ return {
     },
     {
       type = "objectgroup",
-      name = "entity",
-      visible = false,
+      name = "player",
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -1747,6 +1747,33 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      name = "monster_spawn",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      draworder = "topdown",
+      properties = {},
+      objects = {
+        {
+          id = 152,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 2224,
+          y = 7520,
+          width = 192,
+          height = 192,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["isOccupied"] = false
+          }
         }
       }
     }
