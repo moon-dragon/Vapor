@@ -21,7 +21,7 @@ function player.load()
 	player.x = mansion.layers[4].objects[1].x
 	player.y = mansion.layers[4].objects[1].y
 
-	-- Curren animation of the player
+	-- Current animation of the player
 	player.current = player.idleLeft
 
 	-- Keep track of the last direction faced
@@ -251,6 +251,9 @@ function player.move(dt)
 	end
 
 	---------------------------
+
+-- I TOOK PLAYER.BULLDIR.X and PLAYER.BULLDIR.Y and put it above
+
 
 	-- if love.keyboard.isDown("a") then
 	-- 	player.bullDir.x = -1
