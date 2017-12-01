@@ -6,26 +6,44 @@ local spawn = require("entities/code/tools/spawn")
 
 function map.load()
 
-    -- Access the map tileset
-    tileset = love.graphics.newImage("entities/map/purple_dungeon.png")
+    local wallTileset = getTileset("purple_dungeon")
+    local item1Tileset = getTileset("purple_dungeon_item1")
+
+    -- Holds all the tiles from every tileset
+    quads = {}
+
+    -- Access the tileset image: WALL
+    tilesetWall = love.graphics.newImage("entities/map/purple_dungeon.png")
+
+    -- Access the tileset image: STATIC ITEMS
+    tilesetStaticItem = love.graphics.newImage("entities/map/purple_dungeon_item1.png")
 
     -- The number of tiles that makes up the HEIGHT and the WIDTH
     mapHeight, mapWidth = mansion.height, mansion.width
 
-    -- The HEIGHT and WIDTH of a tile
-    tileHeight, tileWidth = mansion.tilesets[1].tileheight, mansion.tilesets[1].tilewidth
+    -- Get Tilesets and Tiles WIDTH and HEIGHT: PURPLE_DUNGEON
+    tileHeightWall, tileWidthWall, tilesetHeightWall, tilesetWidthWall = wallTileset.tileheight, wallTileset.tilewidth, wallTileset.imageheight, wallTileset.imagewidth
 
-    -- WIDTH and HEIGHT of the tileset
-    tilesetHeight, tilesetWidth = mansion.tilesets[1].imageheight, mansion.tilesets[1].imagewidth
+    -- Get Tilesets and Tiles WIDTH and HEIGHT: PURPLE_DUNGEON_ITEM1
+    tileHeightItem1, tileWidthItem1, tilesetHeightItem1, tilesetWidthItem1 = item1Tileset.tileheight, item1Tileset.tilewidth, item1Tileset.imageheight, item1Tileset.imagewidth
 
-    -- Generate each tiles
-    quads = generateTileset(tileWidth, tileHeight, tilesetWidth, tilesetHeight)
+    -- Generate each tiles: PURPLE_DUNGEON
+    addTileset(quads, tileWidthWall, tileHeightWall, tilesetWidthWall, tilesetHeightWall)
+
+    -- Generate each tiles: PURPLE_DUNGEON_ITEMS1
+    addTileset(quads, tileWidthItem1, tileHeightItem1, tilesetWidthItem1, tilesetHeightItem1)
 
     -- The DATA info for the map's MIDDLEGROUND layer
-    mansionMiddleground = getMiddleground()
+    mansionMiddleground = getMapLayer("middleground")
 
     -- The DATA info for the map's FOREGROUND layer
-    mansionForeground = getForeground()
+    mansionForeground = getMapLayer("foreground")
+
+    -- The DATA info for the map's STATIC ITEM1 layer
+    mansionStaticItem1 = getMapLayer("static_wall_items1")
+
+    -- The DATA info for the map's STATIC ITEM2 layer
+    mansionStaticItem2 = getMapLayer("static_wall_items2")
 
     -- List of wall objects (used for colllision)
     mansionWallObjects = collision.getWalls()
@@ -39,61 +57,31 @@ function map.update(dt)
 
 end
 
--- Renders the map: MIDDLEGROUND
-function map.middleGroundDraw()
+function map.drawBaseLayer()
+    -- Renders the map: MIDDLEGROUND
+    drawTileLayer(mansionMiddleground, tilesetWall, quads, tileWidthWall, tileHeightWall)
 
-    for i = 1, #mansionMiddleground do
-        local colIndex = i % mapWidth
-        if colIndex == 0 then
-            colIndex = mapWidth
-        end
-        local rowIndex = math.ceil(i / mapWidth)
-        local currentDataIndex = mansionMiddleground[i]
-        if currentDataIndex ~= nil and currentDataIndex ~= 0 then
-            love.graphics.draw(tileset, quads[currentDataIndex], (colIndex - 1) * tileWidth, (rowIndex - 1) * tileHeight)
-        end
+    -- Render the map: STATIC ITEMS
+    drawTileLayer(mansionStaticItem1, tilesetStaticItem, quads, tileWidthItem1, tileHeightItem1)
+    drawTileLayer(mansionStaticItem2, tilesetStaticItem, quads, tileWidthItem1, tileHeightItem1)
 
-    end
+    -- Draws all the spawn points on the map
+    drawObjectLayer(mansionSpawnPoints)
 end
 
+function map.drawTopLayer()
+    -- Renders the map: FOREGROUND
+    drawTileLayer(mansionForeground, tilesetWall, quads, tileWidthWall, tileHeightWall)
 
--- Renders the map: FOREGROUND
-function map.foreGroundDraw()
-
-    for i = 1, #mansionForeground do
-        local colIndex = i % mapWidth
-        if colIndex == 0 then
-            colIndex = mapWidth
-        end
-        local rowIndex = math.ceil(i / mapWidth)
-        local currentDataIndex = mansionForeground[i]
-        if currentDataIndex ~= nil and currentDataIndex ~= 0 then
-            love.graphics.draw(tileset, quads[currentDataIndex], (colIndex - 1) * tileWidth, (rowIndex - 1) * tileHeight)
-        end
-    end
+    -- -- Draws all collision obects
+    -- drawObjectLayer(mansionWallObjects)
 end
-
--- Renders the map: WALL COLLISION
-function map.wallObjectsDraw()
-    for i = 1, #mansionWallObjects do
-        love.graphics.rectangle("fill", mansionWallObjects[i].x, mansionWallObjects[i].y, mansionWallObjects[i].width, mansionWallObjects[i].height)
-    end
-end
-
--- Render the map: SPAWN POINTS
-function map.monsterSpawnPointsDraw()
-    for i = 1, #mansionSpawnPoints do
-        love.graphics.rectangle("fill", mansionSpawnPoints[i].x, mansionSpawnPoints[i].y, mansionSpawnPoints[i].width, mansionSpawnPoints[i].height)
-    end
-end
-
 
 ------ HELPER FUNCTION ------
 
 -- Put each tile in a tileset in a table of QUADS
-function generateTileset(tileWidth, tileHeight, tilesetWidth, tilesetHeight)
+function addTileset(quads, tileWidth, tileHeight, tilesetWidth, tilesetHeight)
     local quad = love.graphics.newQuad
-    local quads = {}
     local posx, posy = 0, 0
     for x = 1, tilesetHeight/tileHeight do
         for y = 1, tilesetWidth/tileWidth do
@@ -103,24 +91,44 @@ function generateTileset(tileWidth, tileHeight, tilesetWidth, tilesetHeight)
         posy = posy + tileHeight
         posx = 0
     end
-    return quads
-
 end
 
--- Returns the data of the MIDDLEGROUND layer
-function getMiddleground()
+-- Returns the data of the specified layer
+function getMapLayer(name)
     for i = 1, #mansion.layers do
-        if mansion.layers[i].name == "middleground" then
+        if mansion.layers[i].name == name then
             return mansion.layers[i].data
         end
     end
 end
 
--- Returns the data of the FOREGROUND layer
-function getForeground()
-    for i = 1, #mansion.layers do
-        if mansion.layers[i].name == "foreground" then
-            return mansion.layers[i].data
+-- Returns the tilseset object specified
+function getTileset(name)
+    for i = 1, #mansion.tilesets do
+        if mansion.tilesets[i].name == name then
+            return mansion.tilesets[i]
         end
+    end
+end
+
+-- Draws the map with the given parameters
+function drawTileLayer(mapData, tilseset, quad, tileWidth, tileHeight)
+    for i = 1, #mapData do
+        local colIndex = i % mapWidth
+        if colIndex == 0 then
+            colIndex = mapWidth
+        end
+        local rowIndex = math.ceil(i / mapWidth)
+        local currentDataIndex = mapData[i]
+        if currentDataIndex ~= nil and currentDataIndex ~= 0 then
+            love.graphics.draw(tilseset, quad[currentDataIndex], (colIndex - 1) * tileWidth, (rowIndex - 1) * tileHeight)
+        end
+    end
+end
+
+-- Draws the map with the map object
+function drawObjectLayer(mapObject)
+    for i = 1, #mapObject do
+        love.graphics.rectangle("fill", mapObject[i].x, mapObject[i].y, mapObject[i].width, mapObject[i].height)
     end
 end

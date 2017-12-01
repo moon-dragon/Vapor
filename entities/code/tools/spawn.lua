@@ -6,7 +6,6 @@ local mansion = require ("entities/map/map")
 -- 		- monster: the name of the monster
 -- 		- entityTable: the table that holds all of the entity
 function spawn.addEntity(monster, entityTable)
-	print(monster)
 	local entity = {}
 
 	-- Holds any variables that deals with animation

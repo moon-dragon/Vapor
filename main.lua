@@ -28,13 +28,12 @@ function love.draw()
   	love.graphics.translate(-player.x + love.graphics.getWidth() / 2, -player.y + love.graphics.getHeight() / 2)
 
   	-- Draw everything
-	map.middleGroundDraw()
-	map.monsterSpawnPointsDraw()
+	map.drawBaseLayer()
 	player.draw()
 	bullet.draw()
 	entity.draw()
 	-- testent.draw()
-	map.foreGroundDraw()
+	map.drawTopLayer()
 
 	love.graphics.pop()
 end
