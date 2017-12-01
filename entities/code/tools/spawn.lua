@@ -6,6 +6,7 @@ local mansion = require ("entities/map/map")
 -- 		- monster: the name of the monster
 -- 		- entityTable: the table that holds all of the entity
 function spawn.addEntity(monster, entityTable)
+	print(monster)
 	local entity = {}
 
 	-- Holds any variables that deals with animation
@@ -14,9 +15,6 @@ function spawn.addEntity(monster, entityTable)
 	-- Load the appropriate animation and characterristic of the entity
 	local anim = require ("entities/code/animation/" .. string.lower(monster) .. "_anim")
 	local char = require ("entities/code/characteristics/" .. string.lower(monster) .. "_char")
-
-	-- Generate a random spawn point from the list
-	local position = availableSpawnPoints()[math.random(1, #availableSpawnPoints())]
 
 	-- Load ENTITY'S animations
 	entity.idleLeft = anim.IdleLeftAnimation()
@@ -43,7 +41,7 @@ function spawn.addEntity(monster, entityTable)
 	entity.maxAgitation, entity.currentAgitation = char.maxAgitation, 0
 
 	-- Spawn point of the entity
-	entity.x, entity.y = position[1], position[2]
+	entity.x, entity.y = chooseSpawnPoint()
 
 	-- Animation current time
 	entity.animation.currentTime = 0
@@ -70,6 +68,31 @@ function spawn.drawEntity(entity)
 	love.graphics.draw(entity.current[spriteNum], entity.x, entity.y)
 end
 
+-- Returns a random spawn point in a pool of available spawn points
+function chooseSpawnPoint()
+	-- Choose a random spawn point
+	local spawnPoints = availableSpawnPoints()
+	local number = love.math.random(#spawnPoints)
+	local chosenSpawn = spawnPoints[number]
+
+	-- Update the availability of the chosen point
+	updateOccupationStatus(chosenSpawn[1], chosenSpawn[2], true)
+
+	return chosenSpawn[1], chosenSpawn[2]
+
+end
+
+-- Change the status of the specified spawn point
+function updateOccupationStatus(x, y, bool)
+	local points = mansion.layers[5].objects
+	for i = 1, #points do
+		if x == points[i].x and y == points[i].y then
+			mansion.layers[5].objects[i].properties["isOccupied"] = bool
+			break
+		end
+	end
+end
+
 -- Returns all the available spawn points on the map:
 --	 - Meaning that if one entity already spawned in a specific room,
 --	   no one can spawn in that room.
@@ -82,10 +105,8 @@ function availableSpawnPoints()
 	for i = 1, #points do
 		if not points[i].properties["isOccupied"] then
 			table.insert(spawnPoints, {points[i].x, points[i].y})
-			points[i].properties["isOccupies"] = true
 		end
 	end
-
 	return spawnPoints
 end
 

@@ -31,7 +31,10 @@ function player.load()
 	player.direction = "left"
 
 	-- The player's speed
-	player.speed = 8
+	-- player.speed = 8
+
+	-- The player's speed (TESTING PURPOSES)
+	player.speed = 20
 
 	-- Animation current time
 	animation.currentTime = 0
