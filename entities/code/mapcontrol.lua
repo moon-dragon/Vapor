@@ -45,6 +45,9 @@ function map.load()
     -- The DATA info for the map's STATIC ITEM2 layer
     mansionStaticItem2 = getMapLayer("static_wall_items2")
 
+    -- The DATA info for the map's STATIC ITEM3 layer
+    mansionStaticItem3 = getMapLayer("static_wall_items3")
+
     -- List of wall objects (used for colllision)
     mansionWallObjects = collision.getWalls()
 
@@ -61,7 +64,7 @@ function map.drawBaseLayer()
     -- Renders the map: MIDDLEGROUND
     drawTileLayer(mansionMiddleground, tilesetWall, quads, tileWidthWall, tileHeightWall)
 
-    -- Render the map: STATIC ITEMS
+    -- Render the map: STATIC ITEMS1 and STATIC ITEMS2
     drawTileLayer(mansionStaticItem1, tilesetStaticItem, quads, tileWidthItem1, tileHeightItem1)
     drawTileLayer(mansionStaticItem2, tilesetStaticItem, quads, tileWidthItem1, tileHeightItem1)
 
@@ -72,6 +75,9 @@ end
 function map.drawTopLayer()
     -- Renders the map: FOREGROUND
     drawTileLayer(mansionForeground, tilesetWall, quads, tileWidthWall, tileHeightWall)
+
+    -- Render the map: STATIC ITEMS3
+    drawTileLayer(mansionStaticItem3, tilesetStaticItem, quads, tileWidthItem1, tileHeightItem1)
 
     -- -- Draws all collision obects
     -- drawObjectLayer(mansionWallObjects)
