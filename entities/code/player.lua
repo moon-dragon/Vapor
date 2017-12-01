@@ -30,8 +30,8 @@ function player.load()
 	-- Keep track of the last direction faced
 	player.direction = "left"
 
-	-- The player's speed (TEMPORARY)
-	player.speed = 15
+	-- The player's speed
+	player.speed = 8
 
 	-- Animation current time
 	animation.currentTime = 0
@@ -40,10 +40,10 @@ function player.load()
 	animation.currentDuration = 0
 
 	-- Walking animation duration
-	animation.idleDuration = 1
+	animation.idleDuration = 3
 	
 	-- Idle animation duration
-	animation.walkingDuration = 6
+	animation.walkingDuration = 9
 
 	-- List of wall objects (used for colllision)
 	wall.objects = collision.getWalls()

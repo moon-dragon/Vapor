@@ -14,6 +14,7 @@ local spawn = require("entities/code/tools/spawn")
 local movement = require("entities/code/tools/movement")
 
 function entity.load()
+	-- Adds 3 entity
 	spawn.addEntity("frankenstein", entities)
 	spawn.addEntity("ghost", entities)
 	spawn.addEntity("witch", entities)

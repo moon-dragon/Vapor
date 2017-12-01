@@ -1,9 +1,9 @@
 local ghost = {}
 ghost.animation = {}
 
-ghost.speed = 10
+ghost.speed = 15
 ghost.maxAgitation = 3
-ghost.animation.idleDuration = 3
-ghost.animation.walkingDuration = 5
+ghost.animation.idleDuration = 8
+ghost.animation.walkingDuration = 15
 
 return ghost

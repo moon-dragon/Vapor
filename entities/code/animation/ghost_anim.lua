@@ -38,9 +38,7 @@ function ghost.WalkingLeftAnimation()
 		image('entities/img/ghost/walkingLeft6.png'),
 		image('entities/img/ghost/walkingLeft7.png'),
 		image('entities/img/ghost/walkingLeft8.png'),
-		image('entities/img/ghost/walkingLeft9.png'),
-		image('entities/img/ghost/walkingLeft10.png'),
-		image('entities/img/ghost/walkingLeft11.png')
+		image('entities/img/ghost/walkingLeft9.png')
 	}
 	return walkingLeft
 end
@@ -56,9 +54,7 @@ function ghost.WalkingRightAnimation()
 		image('entities/img/ghost/walkingRight6.png'),
 		image('entities/img/ghost/walkingRight7.png'),
 		image('entities/img/ghost/walkingRight8.png'),
-		image('entities/img/ghost/walkingRight9.png'),
-		image('entities/img/ghost/walkingRight10.png'),
-		image('entities/img/ghost/walkingRight11.png')
+		image('entities/img/ghost/walkingRight9.png')
 	}
 	return walkingRight
 end

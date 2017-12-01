@@ -30,10 +30,7 @@ function player.WalkingLeftAnimation()
 		image('entities/img/bellhop/walkingLeft4.png'),
 		image('entities/img/bellhop/walkingLeft5.png'),
 		image('entities/img/bellhop/walkingLeft6.png'),
-		image('entities/img/bellhop/walkingLeft7.png'),
-		image('entities/img/bellhop/walkingLeft8.png'),
-		image('entities/img/bellhop/walkingLeft9.png'),
-		image('entities/img/bellhop/walkingLeft10.png')
+		image('entities/img/bellhop/walkingLeft7.png')
 	}
 	return walkingLeft
 end
@@ -47,10 +44,7 @@ function player.WalkingRightAnimation()
 		image('entities/img/bellhop/walkingRight4.png'),
 		image('entities/img/bellhop/walkingRight5.png'),
 		image('entities/img/bellhop/walkingRight6.png'),
-		image('entities/img/bellhop/walkingRight7.png'),
-		image('entities/img/bellhop/walkingRight8.png'),
-		image('entities/img/bellhop/walkingRight9.png'),
-		image('entities/img/bellhop/walkingRight10.png')
+		image('entities/img/bellhop/walkingRight7.png')
 	}
 	return walkingRight
 end

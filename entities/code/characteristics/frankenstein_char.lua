@@ -1,9 +1,9 @@
 local frankenstein = {}
 frankenstein.animation = {}
 
-frankenstein.speed = 10
+frankenstein.speed = 4
 frankenstein.maxAgitation = 3
-frankenstein.animation.idleDuration = 3
-frankenstein.animation.walkingDuration = 5
+frankenstein.animation.idleDuration = 4
+frankenstein.animation.walkingDuration = 20
 
 return frankenstein

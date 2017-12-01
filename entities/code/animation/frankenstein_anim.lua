@@ -38,14 +38,7 @@ function frankenstein.WalkingLeftAnimation()
 		image('entities/img/frankenstein/walkingLeft8.png'),
 		image('entities/img/frankenstein/walkingLeft9.png'),
 		image('entities/img/frankenstein/walkingLeft10.png'),
-		image('entities/img/frankenstein/walkingLeft11.png'),
-		image('entities/img/frankenstein/walkingLeft12.png'),
-		image('entities/img/frankenstein/walkingLeft13.png'),
-		image('entities/img/frankenstein/walkingLeft14.png'),
-		image('entities/img/frankenstein/walkingLeft15.png'),
-		image('entities/img/frankenstein/walkingLeft16.png'),
-		image('entities/img/frankenstein/walkingLeft17.png'),
-		image('entities/img/frankenstein/walkingLeft18.png')
+		image('entities/img/frankenstein/walkingLeft11.png')
 	}
 	return walkingLeft
 end
@@ -63,14 +56,7 @@ function frankenstein.WalkingRightAnimation()
 		image('entities/img/frankenstein/walkingRight8.png'),
 		image('entities/img/frankenstein/walkingRight9.png'),
 		image('entities/img/frankenstein/walkingRight10.png'),
-		image('entities/img/frankenstein/walkingRight11.png'),
-		image('entities/img/frankenstein/walkingRight12.png'),
-		image('entities/img/frankenstein/walkingRight13.png'),
-		image('entities/img/frankenstein/walkingRight14.png'),
-		image('entities/img/frankenstein/walkingRight15.png'),
-		image('entities/img/frankenstein/walkingRight16.png'),
-		image('entities/img/frankenstein/walkingRight17.png'),
-		image('entities/img/frankenstein/walkingRight18.png')
+		image('entities/img/frankenstein/walkingRight11.png')
 	}
 	return walkingRight
 end
