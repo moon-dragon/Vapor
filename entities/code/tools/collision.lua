@@ -1,5 +1,7 @@
 local collision = {}
 
+local mansion = require ("entities/map/map")
+
 -- Check if the two object specified is overlapping
 -- Format:
 -- 		x1, y1: 1st object coordinates
@@ -24,6 +26,11 @@ function collision.CollisionCheck(playerPosX, playerPosY, playerObject, wallObje
 		end
 	end
 	return false
+end
+
+-- Get all the object that is used for collision
+function collision.getWalls()
+	return mansion.layers[3].objects
 end
 
 return collision

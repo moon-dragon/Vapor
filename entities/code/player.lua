@@ -22,6 +22,8 @@ function player.load()
 	player.x = mansion.layers[4].objects[1].x
 	player.y = mansion.layers[4].objects[1].y
 
+	-- player.x, player.y = 70, 0
+
 	-- Current animation of the player
 	player.current = player.idleLeft
 
@@ -41,10 +43,10 @@ function player.load()
 	animation.idleDuration = 1
 	
 	-- Idle animation duration
-	animation.wakingDuration = 6
+	animation.walkingDuration = 6
 
 	-- List of wall objects (used for colllision)
-	wall.objects = mansion.layers[3].objects
+	wall.objects = collision.getWalls()
 
 	-- player.x = 480
 	-- player.y = 416
@@ -158,7 +160,7 @@ function player.move(dt)
 		player.direction = "right"
 
 		-- Change the duration of each sprite in the walking animation
-		animation.currentDuration = animation.wakingDuration
+		animation.currentDuration = animation.walkingDuration
 
 
 		player.bullDir.x = 1 
@@ -179,7 +181,7 @@ function player.move(dt)
 		player.direction = "left"
 
 		-- Change the duration of each sprite in the walking animation
-		animation.currentDuration = animation.wakingDuration
+		animation.currentDuration = animation.walkingDuration
 
 		player.bullDir.x = -1
 		player.bullDir.y = 0
@@ -219,7 +221,7 @@ function player.move(dt)
 		end
 
 		-- Change the duration of each sprite in the walking animation
-		animation.currentDuration = animation.wakingDuration
+		animation.currentDuration = animation.walkingDuration
 
 		player.bullDir.y = -1
 		player.bullDir.x = 0
@@ -245,7 +247,7 @@ function player.move(dt)
 		end
 
 		-- Change the duration of each sprite in the walking animation
-		animation.currentDuration = animation.wakingDuration
+		animation.currentDuration = animation.walkingDuration
 
 		player.bullDir.y = 1
 		player.bullDir.x = 0

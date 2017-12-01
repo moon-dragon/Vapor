@@ -8,7 +8,7 @@ return {
   height = 100,
   tilewidth = 96,
   tileheight = 96,
-  nextobjectid = 153,
+  nextobjectid = 165,
   properties = {},
   tilesets = {
     {
@@ -1765,8 +1765,188 @@ return {
           name = "",
           type = "",
           shape = "rectangle",
-          x = 2224,
-          y = 7520,
+          x = 2208,
+          y = 7488,
+          width = 192,
+          height = 192,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["isOccupied"] = false
+          }
+        },
+        {
+          id = 153,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 3456,
+          y = 6048,
+          width = 192,
+          height = 192,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["isOccupied"] = false
+          }
+        },
+        {
+          id = 154,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 6816,
+          y = 3360,
+          width = 192,
+          height = 192,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["isOccupied"] = false
+          }
+        },
+        {
+          id = 155,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 6432,
+          y = 5376,
+          width = 192,
+          height = 192,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["isOccupied"] = false
+          }
+        },
+        {
+          id = 156,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 8160,
+          y = 3168,
+          width = 192,
+          height = 192,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["isOccupied"] = false
+          }
+        },
+        {
+          id = 157,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 9120,
+          y = 5280,
+          width = 192,
+          height = 192,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["isOccupied"] = false
+          }
+        },
+        {
+          id = 158,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 3840,
+          y = 3264,
+          width = 192,
+          height = 192,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["isOccupied"] = false
+          }
+        },
+        {
+          id = 159,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 4896,
+          y = 3456,
+          width = 192,
+          height = 192,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["isOccupied"] = false
+          }
+        },
+        {
+          id = 160,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 2304,
+          y = 3456,
+          width = 192,
+          height = 192,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["isOccupied"] = false
+          }
+        },
+        {
+          id = 161,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 3648,
+          y = 2208,
+          width = 192,
+          height = 192,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["isOccupied"] = false
+          }
+        },
+        {
+          id = 162,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 11904,
+          y = 2592,
+          width = 192,
+          height = 192,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["isOccupied"] = false
+          }
+        },
+        {
+          id = 163,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 12288,
+          y = 3840,
+          width = 192,
+          height = 192,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["isOccupied"] = false
+          }
+        },
+        {
+          id = 164,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 11328,
+          y = 5952,
           width = 192,
           height = 192,
           rotation = 0,

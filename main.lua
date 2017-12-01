@@ -3,19 +3,23 @@ require ("entities.code.mapcontrol")
 require ("entities.code.Entity")
 require ("entities.code.TestEnt")
 
+
 function love.load()
 	map.load()
 	player.load()
 	bullet.load()
-	testent.load()
+	-- testent.load()
+	entity.load()
 end
 
 function love.update(dt)
 	map.update()
 	player.update(dt)
 	bullet.update(dt)
-	testent.update(dt)
-  	entity.globalAgit(dt)
+	entity.update(dt)
+	-- testent.update(dt)
+  	-- entity.globalAgit(dt)
+
 end
 
 function love.draw()
@@ -25,9 +29,11 @@ function love.draw()
 
   	-- Draw everything
 	map.middleGroundDraw()
+	map.monsterSpawnPointsDraw()
 	player.draw()
 	bullet.draw()
-	testent.draw()
+	entity.draw()
+	-- testent.draw()
 	map.foreGroundDraw()
 
 

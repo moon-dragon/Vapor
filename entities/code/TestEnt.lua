@@ -17,7 +17,7 @@ function testent.load()
 	--testent.height = 32 --used for vertical collision
 	--Lets put the entity in the game on the entity's load function
 	franken = entity.spawn(testent, 256, 256,128,128)
-  table.insert(entity.getEntities(), franken)
+  	table.insert(entity.getEntities(), franken)
 end
 
 function testent.update(dt)
