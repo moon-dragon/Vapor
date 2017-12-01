@@ -68,6 +68,24 @@ function spawn.drawEntity(entity)
 	love.graphics.draw(entity.current[spriteNum], entity.x, entity.y)
 end
 
+-- Returns all the objects that deals with entity spawning
+function spawn.getSpawnPoints()
+	for i = 1, #mansion.layers do
+		if mansion.layers[i].name == "monster_spawn" then
+			return mansion.layers[i].objects
+		end
+	end
+end
+
+-- Returns the position of the monster spawn objects in map table
+function  getSpawnLayerPos()
+	for i = 1, #mansion.layers do
+		if mansion.layers[i].name == "monster_spawn" then
+			return i
+		end
+	end
+end
+
 -- Returns a random spawn point in a pool of available spawn points
 function chooseSpawnPoint()
 	-- Choose a random spawn point
@@ -84,10 +102,10 @@ end
 
 -- Change the status of the specified spawn point
 function updateOccupationStatus(x, y, bool)
-	local points = mansion.layers[5].objects
+	local points = spawn.getSpawnPoints()
 	for i = 1, #points do
 		if x == points[i].x and y == points[i].y then
-			mansion.layers[5].objects[i].properties["isOccupied"] = bool
+			mansion.layers[getSpawnLayerPos()].objects[i].properties["isOccupied"] = bool
 			break
 		end
 	end
@@ -99,7 +117,7 @@ end
 function availableSpawnPoints()
 	local spawnPoints = {}
 	-- Lists all the spawn points in the map
-	local points = mansion.layers[5].objects
+	local points = spawn.getSpawnPoints()
 
 	-- Lists all the AVAILABLE spawn points in map
 	for i = 1, #points do

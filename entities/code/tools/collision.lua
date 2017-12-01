@@ -30,7 +30,11 @@ end
 
 -- Get all the object that is used for collision
 function collision.getWalls()
-	return mansion.layers[3].objects
+	for i = 1, #mansion.layers do
+		if mansion.layers[i].name == "collision" then
+			return mansion.layers[i].objects
+		end
+	end
 end
 
 return collision

@@ -19,8 +19,7 @@ function player.load()
 	player.walkingRight = anim.WalkingRightAnimation()
 
 	-- Starting position of player
-	player.x = mansion.layers[4].objects[1].x
-	player.y = mansion.layers[4].objects[1].y
+	player.x, player.y = player.getPlayerSpawn()
 
 	-- player.x, player.y = 70, 0
 
@@ -319,6 +318,15 @@ function player.fire(dt)
     	bullet.fire()
     end
 end
+
+function player.getPlayerSpawn()
+	for i = 1, #mansion.layers do
+		if mansion.layers[i].name == "player" then
+			return mansion.layers[i].objects[1].x, mansion.layers[i].objects[1].y
+		end
+	end
+end
+
 
 --[[function player.xcollide()
 	if player.xvel > 0 then

@@ -36,7 +36,6 @@ function love.draw()
 	-- testent.draw()
 	map.foreGroundDraw()
 
-
 	love.graphics.pop()
 end
 

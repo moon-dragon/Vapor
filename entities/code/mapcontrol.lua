@@ -1,9 +1,10 @@
 map = {}
 
-function map.load()
+local mansion = require("entities/map/map")
+local collision = require("entities/code/tools/collision")
+local spawn = require("entities/code/tools/spawn")
 
-    -- Access the generated code for the map
-    local mansion = require("entities/map/map")
+function map.load()
 
     -- Access the map tileset
     tileset = love.graphics.newImage("entities/map/purple_dungeon.png")
@@ -20,17 +21,17 @@ function map.load()
     -- Generate each tiles
     quads = generateTileset(tileWidth, tileHeight, tilesetWidth, tilesetHeight)
 
-    -- The DATA info for the map's 1ST LAYER
-    mansionMiddleground = mansion.layers[1].data
+    -- The DATA info for the map's MIDDLEGROUND layer
+    mansionMiddleground = getMiddleground()
 
-    -- The DATA info for the map's 2nd LAYER
-    mansionForeground = mansion.layers[2].data
+    -- The DATA info for the map's FOREGROUND layer
+    mansionForeground = getForeground()
 
     -- List of wall objects (used for colllision)
-    mansionWallObjects = mansion.layers[3].objects
+    mansionWallObjects = collision.getWalls()
 
     -- List of spawn objects
-    mansionSpawnPoints = mansion.layers[5].objects
+    mansionSpawnPoints = spawn.getSpawnPoints()
 
 end
 
@@ -104,4 +105,22 @@ function generateTileset(tileWidth, tileHeight, tilesetWidth, tilesetHeight)
     end
     return quads
 
+end
+
+-- Returns the data of the MIDDLEGROUND layer
+function getMiddleground()
+    for i = 1, #mansion.layers do
+        if mansion.layers[i].name == "middleground" then
+            return mansion.layers[i].data
+        end
+    end
+end
+
+-- Returns the data of the FOREGROUND layer
+function getForeground()
+    for i = 1, #mansion.layers do
+        if mansion.layers[i].name == "foreground" then
+            return mansion.layers[i].data
+        end
+    end
 end
