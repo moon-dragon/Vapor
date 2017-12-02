@@ -18,7 +18,7 @@ function love.update(dt)
 	bullet.update(dt)
 	entity.update(dt)
 	-- testent.update(dt)
-  	-- entity.globalAgit(dt)
+  entity.globalAgit(dt)
 
 end
 

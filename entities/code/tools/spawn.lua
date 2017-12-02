@@ -65,6 +65,10 @@ function spawn.drawEntity(entity)
 	
 	-- Draws the entity
 	love.graphics.draw(entity.current[spriteNum], entity.x, entity.y)
+  -- Print current agitation
+  FONT = love.graphics.newFont("entities/img/font.ttf", 32)
+  love.graphics.setFont(FONT)
+  love.graphics.printf(entity.currentAgitation, entity.x + 80, entity.y - 30 , 20, left)
 end
 
 -- Returns all the objects that deals with entity spawning
