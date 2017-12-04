@@ -8,6 +8,7 @@ function map.load()
 
     local wallTileset = getTileset("purple_dungeon")
     local item1Tileset = getTileset("purple_dungeon_item1")
+    local item2Tileset = getTileset("purple_dungeon_item2")
 
     -- Holds all the tiles from every tileset
     quads = {}
@@ -15,8 +16,11 @@ function map.load()
     -- Access the tileset image: WALL
     tilesetWall = love.graphics.newImage("entities/map/purple_dungeon.png")
 
-    -- Access the tileset image: STATIC ITEMS
-    tilesetStaticItem = love.graphics.newImage("entities/map/purple_dungeon_item1.png")
+    -- Access the tileset image: STATIC ITEMS1
+    tilesetStaticItem1 = love.graphics.newImage("entities/map/purple_dungeon_item1.png")
+
+    -- Access the tileset image: STATIC ITEMS2
+    tilesetStaticItem2 = love.graphics.newImage("entities/map/purple_dungeon_item2.png")
 
     -- The number of tiles that makes up the HEIGHT and the WIDTH
     mapHeight, mapWidth = mansion.height, mansion.width
@@ -27,11 +31,17 @@ function map.load()
     -- Get Tilesets and Tiles WIDTH and HEIGHT: PURPLE_DUNGEON_ITEM1
     tileHeightItem1, tileWidthItem1, tilesetHeightItem1, tilesetWidthItem1 = item1Tileset.tileheight, item1Tileset.tilewidth, item1Tileset.imageheight, item1Tileset.imagewidth
 
+    -- Get Tilesets and Tiles WIDTH and HEIGHT: PURPLE_DUNGEON_ITEM2
+    tileHeightItem2, tileWidthItem2, tilesetHeightItem2, tilesetWidthItem2 = item2Tileset.tileheight, item2Tileset.tilewidth, item2Tileset.imageheight, item2Tileset.imagewidth
+
     -- Generate each tiles: PURPLE_DUNGEON
     addTileset(quads, tileWidthWall, tileHeightWall, tilesetWidthWall, tilesetHeightWall)
 
     -- Generate each tiles: PURPLE_DUNGEON_ITEMS1
     addTileset(quads, tileWidthItem1, tileHeightItem1, tilesetWidthItem1, tilesetHeightItem1)
+
+    -- Generate each tiles: PURPLE_DUNGEON_ITEMS2
+    addTileset(quads, tileWidthItem2, tileHeightItem2, tilesetWidthItem2, tilesetHeightItem2)
 
     -- The DATA info for the map's MIDDLEGROUND layer
     mansionMiddleground = getMapLayer("middleground")
@@ -47,6 +57,18 @@ function map.load()
 
     -- The DATA info for the map's STATIC ITEM3 layer
     mansionStaticItem3 = getMapLayer("static_wall_items3")
+
+    -- The DATA info for the map's STATIC ITEM4 layer
+    mansionStaticItem4 = getMapLayer("static_wall_items4")
+
+    -- The DATA info for the map's STATIC ITEM5 layer
+    mansionStaticItem5 = getMapLayer("static_wall_items5")
+
+    -- The DATA info for the map's STATIC ITEM6 layer
+    mansionStaticItem6 = getMapLayer("static_wall_items6")
+
+    -- The DATA info for the map's STATIC ITEM7 layer
+    mansionStaticItem7 = getMapLayer("static_wall_items7")
 
     -- List of wall objects (used for colllision)
     mansionWallObjects = collision.getWalls()
@@ -65,8 +87,10 @@ function map.drawBaseLayer()
     drawTileLayer(mansionMiddleground, tilesetWall, quads, tileWidthWall, tileHeightWall)
 
     -- Render the map: STATIC ITEMS1 and STATIC ITEMS2
-    drawTileLayer(mansionStaticItem1, tilesetStaticItem, quads, tileWidthItem1, tileHeightItem1)
-    drawTileLayer(mansionStaticItem2, tilesetStaticItem, quads, tileWidthItem1, tileHeightItem1)
+    drawTileLayer(mansionStaticItem1, tilesetStaticItem1, quads, tileWidthItem1, tileHeightItem1)
+    drawTileLayer(mansionStaticItem4, tilesetStaticItem2, quads, tileWidthItem2, tileHeightItem2)
+    drawTileLayer(mansionStaticItem7, tilesetStaticItem2, quads, tileWidthItem2, tileHeightItem2)
+    drawTileLayer(mansionStaticItem2, tilesetStaticItem1, quads, tileWidthItem1, tileHeightItem1)
 
     -- Draws all the spawn points on the map
     drawObjectLayer(mansionSpawnPoints)
@@ -76,8 +100,10 @@ function map.drawTopLayer()
     -- Renders the map: FOREGROUND
     drawTileLayer(mansionForeground, tilesetWall, quads, tileWidthWall, tileHeightWall)
 
-    -- Render the map: STATIC ITEMS3
-    drawTileLayer(mansionStaticItem3, tilesetStaticItem, quads, tileWidthItem1, tileHeightItem1)
+    -- Render the map: STATIC ITEMS3, STATIC ITEMS5, and STATIC ITEMS6
+    drawTileLayer(mansionStaticItem5, tilesetStaticItem2, quads, tileWidthItem2, tileHeightItem2)
+    drawTileLayer(mansionStaticItem6, tilesetStaticItem2, quads, tileWidthItem2, tileHeightItem2)
+    drawTileLayer(mansionStaticItem3, tilesetStaticItem1, quads, tileWidthItem1, tileHeightItem1)
 
     -- -- Draws all collision obects
     -- drawObjectLayer(mansionWallObjects)
