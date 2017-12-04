@@ -5,6 +5,10 @@ require ("entities.code.TestEnt")
 
 
 function love.load()
+	local music = love.audio.newSource("entities/music/Liquid_Spear_Waltz.wav")
+	music:setLooping(true)
+	love.audio.play(music)
+
 	map.load()
 	player.load()
 	bullet.load()

@@ -21,8 +21,6 @@ function player.load()
 	-- Starting position of player
 	player.x, player.y = player.getPlayerSpawn()
 
-	-- player.x, player.y = 70, 0
-
 	-- Current animation of the player
 	player.current = player.idleLeft
 

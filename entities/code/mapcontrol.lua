@@ -86,7 +86,7 @@ function map.drawBaseLayer()
     -- Renders the map: MIDDLEGROUND
     drawTileLayer(mansionMiddleground, tilesetWall, quads, tileWidthWall, tileHeightWall)
 
-    -- Render the map: STATIC ITEMS1 and STATIC ITEMS2
+    -- Render the map: STATIC ITEMS1, STATIC ITEMS2, STATIC ITEMS4, and STATIC ITEMS7
     drawTileLayer(mansionStaticItem1, tilesetStaticItem1, quads, tileWidthItem1, tileHeightItem1)
     drawTileLayer(mansionStaticItem4, tilesetStaticItem2, quads, tileWidthItem2, tileHeightItem2)
     drawTileLayer(mansionStaticItem7, tilesetStaticItem2, quads, tileWidthItem2, tileHeightItem2)
