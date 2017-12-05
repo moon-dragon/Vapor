@@ -1,7 +1,7 @@
 local player = require ("entities.code.player")
 local map = require ("entities.code.mapcontrol")
-require ("entities.code.Entity")
-require ("entities.code.tools.ui")
+local entity = require ("entities.code.Entity")
+local ui = require ("entities.code.tools.ui")
 require ("entities.code.TestEnt")
 
 

@@ -105,6 +105,8 @@ function entity.globalAgit(dt)
   end
 end
 
+return entity
+
 -- --in order for an entity to update, they must pass entity.update to love.update themselves
 -- function entity.update(dt)
   
