@@ -1,8 +1,8 @@
-require ("entities.code.bullet")
 player = {}
 animation = {}
 wall = {}
 
+local bullet = require ("entities.code.bullet")
 local mansion = require ("entities/map/map")
 local anim = require ("entities/code/animation/player_anim")
 local collision = require ("entities/code/tools/collision")
@@ -86,8 +86,8 @@ end
 
 function player.draw()
 	bullet.draw()
-	-- love.graphics.setColor(25,25,25)
-	love.graphics.print("Health: " .. player.health, 50, 50)
+	-- -- love.graphics.setColor(25,25,25)
+	-- love.graphics.print("Health: " .. player.health, 50, 50)
 
 	if player.health < 25 then
 		love.graphics.setColor(255,255,255)
@@ -324,6 +324,16 @@ function player.getPlayerSpawn()
 		end
 	end
 end
+
+function player.getHealth()
+	return player.health
+end
+
+function player.getPosition()
+	return player.x, player.y
+end
+
+return player
 
 
 --[[function player.xcollide()

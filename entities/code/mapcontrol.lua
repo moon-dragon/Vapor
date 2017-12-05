@@ -6,6 +6,7 @@ local spawn = require("entities/code/tools/spawn")
 
 function map.load()
 
+    -- Access all tileset
     local wallTileset = getTileset("purple_dungeon")
     local item1Tileset = getTileset("purple_dungeon_item1")
     local item2Tileset = getTileset("purple_dungeon_item2")
@@ -164,3 +165,5 @@ function drawObjectLayer(mapObject)
         love.graphics.rectangle("fill", mapObject[i].x, mapObject[i].y, mapObject[i].width, mapObject[i].height)
     end
 end
+
+return map

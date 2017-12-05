@@ -1,11 +1,6 @@
---this script will just define the functions to be used for entities
-
--- entity = {}
--- --ents is a count of how many entities have been spawned
--- ents = 0
-
 entity = {}
---all entities that currently exist in the map
+
+-- All entities that currently exist in the map
 entities = {}
 
 globalAgitationTimer = 10
@@ -19,14 +14,14 @@ function entity.load()
 	spawn.addEntity("ghost", entities)
 	spawn.addEntity("witch", entities)
 
-	-- TEMPORARY
-	spawn.addEntity("ghost", entities)
-	spawn.addEntity("ghost", entities)
-	spawn.addEntity("witch", entities)
+	-- -- TEMPORARY
+	-- spawn.addEntity("ghost", entities)
+	-- spawn.addEntity("ghost", entities)
+	-- spawn.addEntity("witch", entities)
 
-	spawn.addEntity("witch", entities)
-	spawn.addEntity("ghost", entities)
-	spawn.addEntity("witch", entities)
+	-- spawn.addEntity("witch", entities)
+	-- spawn.addEntity("ghost", entities)
+	-- spawn.addEntity("witch", entities)
 end
 
 function entity.update(dt)
@@ -35,13 +30,13 @@ function entity.update(dt)
 	movement.movement(0, 0, entities, 2, dt)
 	movement.movement(0, 0, entities, 3, dt)
 
-	movement.movement(0, 0, entities, 4, dt)
-	movement.movement(0, 0, entities, 5, dt)
-	movement.movement(0, 0, entities, 6, dt)
+	-- movement.movement(0, 0, entities, 4, dt)
+	-- movement.movement(0, 0, entities, 5, dt)
+	-- movement.movement(0, 0, entities, 6, dt)
 
-	movement.movement(0, 0, entities, 7, dt)
-	movement.movement(0, 0, entities, 8, dt)
-	movement.movement(0, 0, entities, 9, dt)
+	-- movement.movement(0, 0, entities, 7, dt)
+	-- movement.movement(0, 0, entities, 8, dt)
+	-- movement.movement(0, 0, entities, 9, dt)
 
 	-- movement.movement(math.random(0, 2), math.random(0, 2), entities, 1, dt)
 	-- movement.movement(math.random(0, 2), math.random(0, 2), entities, 2, dt)

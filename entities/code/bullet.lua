@@ -47,3 +47,5 @@ function bullet.fire()
 
 	table.insert(bullet, {x = startX, y = startY, dx = player.bullDir.x * bulletSpeed, dy = player.bullDir.y * bulletSpeed, width = 50, height = 50})
 end
+
+return bullet

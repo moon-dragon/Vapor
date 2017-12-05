@@ -77,7 +77,7 @@ function spawn.drawEntity(entity)
 	love.graphics.draw(entity.current[spriteNum], entity.x, entity.y)
   	
   	-- Print current agitation
-	FONT = love.graphics.newFont("entities/img/font.ttf", 32)
+	local FONT = love.graphics.newFont("entities/img/font.ttf", 32)
 	love.graphics.setFont(FONT)
 	love.graphics.printf(entity.currentAgitation, entity.x + 80, entity.y - 30 , 40, left)
 end
