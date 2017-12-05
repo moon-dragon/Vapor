@@ -6,10 +6,10 @@ require ("entities.code.TestEnt")
 
 function love.load()
 	-- Play the uploaded music
-	local music = love.audio.newSource("entities/music/Liquid_Spear_Waltz.wav")
+	music = love.audio.newSource("entities/music/Liquid_Spear_Waltz.wav")
 	music:setLooping(true)
 	love.audio.play(music)
-	
+
 	map.load()
 	player.load()
 	bullet.load()
@@ -18,12 +18,13 @@ function love.load()
 end
 
 function love.update(dt)
+
 	map.update()
 	player.update(dt)
 	bullet.update(dt)
 	entity.update(dt)
 	-- testent.update(dt)
-  entity.globalAgit(dt)
+  	entity.globalAgit(dt)
 
 end
 

@@ -30,7 +30,7 @@ function player.load()
 	-- The player's speed
 	-- player.speed = 8
 
-	-- The player's speed (TESTING PURPOSES)
+	-- -- The player's speed (TESTING PURPOSES)
 	player.speed = 20
 
 	-- Animation current time

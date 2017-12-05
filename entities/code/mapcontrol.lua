@@ -93,7 +93,7 @@ function map.drawBaseLayer()
     drawTileLayer(mansionStaticItem2, tilesetStaticItem1, quads, tileWidthItem1, tileHeightItem1)
 
     -- Draws all the spawn points on the map
-    drawObjectLayer(mansionSpawnPoints)
+    -- drawObjectLayer(mansionSpawnPoints)
 end
 
 function map.drawTopLayer()

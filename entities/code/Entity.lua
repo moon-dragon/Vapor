@@ -8,7 +8,7 @@ entity = {}
 --all entities that currently exist in the map
 entities = {}
 
-globalAgitationTimer = 5
+globalAgitationTimer = 10
 
 local spawn = require("entities/code/tools/spawn")
 local movement = require("entities/code/tools/movement")
@@ -42,6 +42,18 @@ function entity.update(dt)
 	movement.movement(0, 0, entities, 7, dt)
 	movement.movement(0, 0, entities, 8, dt)
 	movement.movement(0, 0, entities, 9, dt)
+
+	-- movement.movement(math.random(0, 2), math.random(0, 2), entities, 1, dt)
+	-- movement.movement(math.random(0, 2), math.random(0, 2), entities, 2, dt)
+	-- movement.movement(math.random(0, 2), math.random(0, 2), entities, 3, dt)
+
+	-- movement.movement(math.random(0, 2), math.random(0, 2), entities, 4, dt)
+	-- movement.movement(math.random(0, 2), math.random(0, 2), entities, 5, dt)
+	-- movement.movement(math.random(0, 2), math.random(0, 2), entities, 6, dt)
+
+	-- movement.movement(math.random(0, 2), math.random(0, 2), entities, 7, dt)
+	-- movement.movement(math.random(0, 2), math.random(0, 2), entities, 8, dt)
+	-- movement.movement(math.random(0, 2), math.random(0, 2), entities, 9, dt)
 end
 
 function entity.draw()
@@ -68,7 +80,7 @@ end
 
 function entity.incrementAgit(table)
   if(table.currentAgitation <= table.maxAgitation) then
-    table.currentAgitation = table.currentAgitation + 1
+    table.currentAgitation = table.currentAgitation + (1 * table.agitationLevel)
   end
 end
 
@@ -76,7 +88,7 @@ end
 function entity.decrementAgit(table)
   if(table.currentAgitation > 0) then
     table.currentAgitation = table.currentAgitation - 1
-    print ("agitation of frankenstein is " ..table.currentAgitation)
+    -- print ("agitation of frankenstein is " ..table.currentAgitation)
   end
 end
 

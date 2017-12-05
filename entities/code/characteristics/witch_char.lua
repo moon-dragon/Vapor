@@ -3,7 +3,7 @@ witch.animation = {}
 
 witch.speed = 10
 witch.nemesis = {"ghost"}
-witch.maxAgitation = 3
+witch.maxAgitation = 12
 witch.animation.idleDuration = 6
 witch.animation.walkingDuration = 9
 
