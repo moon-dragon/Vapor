@@ -4300,21 +4300,6 @@ return {
       properties = {},
       objects = {
         {
-          id = 152,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 2208,
-          y = 7488,
-          width = 192,
-          height = 192,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["isOccupied"] = false
-          }
-        },
-        {
           id = 153,
           name = "",
           type = "",
@@ -4326,7 +4311,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["isOccupied"] = false
+            ["isOccupied"] = false,
+            ["roomNumber"] = 1
           }
         },
         {
@@ -4341,7 +4327,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["isOccupied"] = false
+            ["isOccupied"] = false,
+            ["roomNumber"] = 6
           }
         },
         {
@@ -4356,7 +4343,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["isOccupied"] = false
+            ["isOccupied"] = false,
+            ["roomNumber"] = 8
           }
         },
         {
@@ -4371,7 +4359,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["isOccupied"] = false
+            ["isOccupied"] = false,
+            ["roomNumber"] = 7
           }
         },
         {
@@ -4386,7 +4375,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["isOccupied"] = false
+            ["isOccupied"] = false,
+            ["roomNumber"] = 9
           }
         },
         {
@@ -4401,7 +4391,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["isOccupied"] = false
+            ["isOccupied"] = false,
+            ["roomNumber"] = 3
           }
         },
         {
@@ -4416,7 +4407,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["isOccupied"] = false
+            ["isOccupied"] = false,
+            ["roomNumber"] = 4
           }
         },
         {
@@ -4431,7 +4423,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["isOccupied"] = false
+            ["isOccupied"] = false,
+            ["roomNumber"] = 2
           }
         },
         {
@@ -4446,7 +4439,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["isOccupied"] = false
+            ["isOccupied"] = false,
+            ["roomNumber"] = 5
           }
         },
         {
@@ -4461,7 +4455,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["isOccupied"] = false
+            ["isOccupied"] = false,
+            ["roomNumber"] = 10
           }
         },
         {
@@ -4476,7 +4471,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["isOccupied"] = false
+            ["isOccupied"] = false,
+            ["roomNumber"] = 11
           }
         },
         {
@@ -4491,7 +4487,8 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["isOccupied"] = false
+            ["isOccupied"] = false,
+            ["roomNumber"] = 12
           }
         }
       }

@@ -18,6 +18,15 @@ function entity.load()
 	spawn.addEntity("frankenstein", entities)
 	spawn.addEntity("ghost", entities)
 	spawn.addEntity("witch", entities)
+
+	-- TEMPORARY
+	spawn.addEntity("ghost", entities)
+	spawn.addEntity("ghost", entities)
+	spawn.addEntity("witch", entities)
+
+	spawn.addEntity("witch", entities)
+	spawn.addEntity("ghost", entities)
+	spawn.addEntity("witch", entities)
 end
 
 function entity.update(dt)
@@ -25,6 +34,14 @@ function entity.update(dt)
 	movement.movement(0, 0, entities, 1, dt)
 	movement.movement(0, 0, entities, 2, dt)
 	movement.movement(0, 0, entities, 3, dt)
+
+	movement.movement(0, 0, entities, 4, dt)
+	movement.movement(0, 0, entities, 5, dt)
+	movement.movement(0, 0, entities, 6, dt)
+
+	movement.movement(0, 0, entities, 7, dt)
+	movement.movement(0, 0, entities, 8, dt)
+	movement.movement(0, 0, entities, 9, dt)
 end
 
 function entity.draw()
