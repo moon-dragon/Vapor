@@ -46,10 +46,16 @@ function love.update(dt)
 end
 
 function love.draw()
+	------------------ SCALING ----------------------
+	scale = 0.2 -- lower number = zoom out
+	screenWidth = love.graphics.getWidth() / scale;
+	screenHeight = love.graphics.getHeight() / scale;
+	love.graphics.scale(scale)
+
 	----------- PLAYER CAMERA MOVEMENT --------------
 	-- Makes the camera follow the player
 	love.graphics.push()
-  	love.graphics.translate(-playerx + love.graphics.getWidth() / 2, -playery + love.graphics.getHeight() / 2)
+  	love.graphics.translate(-playerx + screenWidth / 2, -playery + screenHeight / 2)
 
   	-- Draw the map
 	map.drawBaseLayer()
