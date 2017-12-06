@@ -10,7 +10,7 @@ local isAWall, wallX, wallY, wallWidth, wallHeight = nil, nil, nil, nil, nil
 
 function player.load()
 	bullet.load()
-	player.bullDir = {x = 0, y = 0} --store player direction in table
+	player.bullDir = {x = 0, y = -1} --store player direction in table
 	
 	-- Load BELLHOP'S animations
 	player.idleLeft = anim.IdleLeftAnimation()
