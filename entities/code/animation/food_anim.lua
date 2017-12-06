@@ -15,3 +15,5 @@ function food.foodSpinAnimation ()
 	}
 	return foodSpin
 end
+
+return food
