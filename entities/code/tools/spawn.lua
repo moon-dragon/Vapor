@@ -1,6 +1,7 @@
 local spawn = {}
 local mansion = require ("entities/map/map")
 
+
 -- Adds a new entity to the list of entities
 -- Format:
 -- 		- monster: the name of the monster
@@ -41,6 +42,10 @@ function spawn.addEntity(monster, entityTable)
 
 	-- Spawn point of the entity
 	entity.x, entity.y = chooseSpawnPoint()
+  
+  --Entity's Agitation area
+  --local entityAoE = agitationAoE.rect( entity.x, entity.y, 2000, 2000, white)
+  --entity.agitationArea
 
 	-- Animation current time
 	entity.animation.currentTime = 0
@@ -65,6 +70,8 @@ function spawn.drawEntity(entity)
 	
 	-- Draws the entity
 	love.graphics.draw(entity.current[spriteNum], entity.x, entity.y)
+  
+  
   -- Print current agitation
   FONT = love.graphics.newFont("entities/img/font.ttf", 32)
   love.graphics.setFont(FONT)

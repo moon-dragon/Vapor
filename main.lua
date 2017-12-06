@@ -2,6 +2,7 @@ require ("entities.code.player")
 require ("entities.code.mapcontrol")
 require ("entities.code.Entity")
 require ("entities.code.TestEnt")
+require ("entities.code.agitationAoE")
 
 
 function love.load()
@@ -19,6 +20,7 @@ function love.update(dt)
 	entity.update(dt)
 	-- testent.update(dt)
   entity.globalAgit(dt)
+  entity.agitationDamage(dt)
 
 end
 
@@ -32,6 +34,7 @@ function love.draw()
 	player.draw()
 	bullet.draw()
 	entity.draw()
+  agitationAoE.draw()
 	-- testent.draw()
 	map.drawTopLayer()
 

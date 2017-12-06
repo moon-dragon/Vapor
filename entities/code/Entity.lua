@@ -10,8 +10,11 @@ entities = {}
 
 globalAgitationTimer = 5
 
+require("entities/code/player")
+require("entities/code/bullet")
 local spawn = require("entities/code/tools/spawn")
 local movement = require("entities/code/tools/movement")
+
 
 function entity.load()
 	-- Adds 3 entity
@@ -26,6 +29,22 @@ function entity.update(dt)
 	movement.movement(0, 0, entities, 2, dt)
 	movement.movement(0, 0, entities, 3, dt)
 end
+
+
+function entity.agitationDamage(dt)
+  --max agitation check and AoE damage
+  for i,v in ipairs(entities) do
+    if(v.currentAgitation == v.maxAgitation) then
+      for j,k in ipairs(agitationAoE.getAgitationAreas()) do
+        if(bullet.collides(player,k)) then --agitationAoE.area
+          print(player.health)
+          player.health = player.health - 25
+        end
+      end
+    end
+  end
+end
+
 
 function entity.draw()
 	for i = 1, #entities do
@@ -49,8 +68,9 @@ end
 -- 	return newent
 -- end
 
+
 function entity.incrementAgit(table)
-  if(table.currentAgitation <= table.maxAgitation) then
+  if(table.currentAgitation < table.maxAgitation) then
     table.currentAgitation = table.currentAgitation + 1
   end
 end
@@ -67,7 +87,6 @@ end
 function entity.getEntities()
   return entities
 end
-
 
 function entity.globalAgit(dt)
   --print("globalagit")
