@@ -18,6 +18,9 @@ function love.load()
 	player.load()
 	playerx, playery = player.getPlayerSpawn()
 
+	-- Starting Scale of the map
+	scaleX, scaleY = 0.8, 0.8
+
 	-- Load all the entity
 	entity.load()
 
@@ -46,16 +49,22 @@ function love.update(dt)
 end
 
 function love.draw()
-	------------------ SCALING ----------------------
-	scale = 0.2 -- lower number = zoom out
-	screenWidth = love.graphics.getWidth() / scale;
-	screenHeight = love.graphics.getHeight() / scale;
-	love.graphics.scale(scale)
+	-- ------------------ SCALING ----------------------
+	-- scale = 0.2 -- lower number = zoom out
+	-- screenWidth = love.graphics.getWidth() / scale;
+	-- screenHeight = love.graphics.getHeight() / scale;
+	-- love.graphics.scale(scale)
 
 	----------- PLAYER CAMERA MOVEMENT --------------
-	-- Makes the camera follow the player
 	love.graphics.push()
-  	love.graphics.translate(-playerx + screenWidth / 2, -playery + screenHeight / 2)
+
+	-- Scale the map
+	love.graphics.scale(scaleX, scaleY)
+	
+	-- Makes the camera follow the player
+	love.graphics.translate(-playerx + (love.graphics.getWidth() / 2) * (1/scaleX), -playery + (love.graphics.getHeight() / 2) * (1/scaleY))
+
+  	-- love.graphics.translate(-playerx + screenWidth / 2, -playery + screenHeight / 2)
 
   	-- Draw the map
 	map.drawBaseLayer()
@@ -98,5 +107,35 @@ function love.keypressed(key, isrepeat)
 			fullscreen = true
 		end
 		love.window.setFullscreen(fullscreen)
+	end
+end
+
+-- Change the scale using the scroll wheel
+function love.wheelmoved(x, y)
+    if 0.6 <= scaleX and scaleX <= 1.0 or 0.6 <= scaleY and scaleY <= 1.0 then
+    	if y > 0 then
+    		scaleX = pickUpperScale(scaleX + 0.1, 1.0)
+    		scaleY = pickUpperScale(scaleY + 0.1, 1.0)
+    	elseif y < 0 then
+    		scaleX = pickLowerScale(scaleX - 0.1, 0.6)
+    		scaleY = pickLowerScale(scaleY - 0.1, 0.6)
+    	end
+    end
+end
+
+-- Only used for scaling
+function pickUpperScale(choice1, choice2)
+	if choice1 < choice2 then
+		return choice1
+	else
+		return choice2
+	end
+end
+
+function pickLowerScale(choice1, choice2)
+	if choice1 > choice2 then
+		return choice1
+	else
+		return choice2
 	end
 end
