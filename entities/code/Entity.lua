@@ -56,7 +56,7 @@ function entity.draw()
 		spawn.drawEntity(entities[i])
 	end
   
-  entity.agitationDamage(dt)
+  	entity.agitationDamage(dt)
 end
 
 -- function entity.spawn(table, x, y, width, height)
@@ -92,10 +92,10 @@ end
 function entity.agitationDamage(dt)--dt
   --max agitation check and AoE damage
   for i,v in ipairs(entities) do
-    if(v.currentAgitation == v.maxAgitation) then
+    if(v.currentAgitation >= v.maxAgitation) then
       spawn.draw_area(v.area)
         if(bullet.collides(player,v.area)) then --area is the entity's agitation area
-          --print(player.health)
+          -- print(player.health)
           player.health = player.health - 25
         end
     end

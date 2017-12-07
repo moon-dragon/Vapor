@@ -37,6 +37,8 @@ function ui.update(dt)
 		ui.cycleCounter = ui.cycleCounter + 1
 		ui.counter2 = 0
 	end
+
+	ui.health = player.getHealth()
 end
 
 function ui.draw()

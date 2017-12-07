@@ -1,18 +1,19 @@
 local spawn = {}
 local mansion = require ("entities/map/map")
 local neighbor = require ("entities/code/tools/neighbor")
-local color = { 255, 0, 0, 255} --red
+local color = {255, 0, 0, 255} --red
+
+
+--agitation area dimensions, basically a rectangle object
+local function agitationArea (posx, posy, w, h, color)
+	return { x = posx, y = posy, width = w, height = h, color = color }
+end
+
 
 -- Adds a new entity to the list of entities
 -- Format:
 -- 		- monster: the name of the monster
 -- 		- entityTable: the table that holds all of the entity
-
---agitation area dimensions, basically a rectangle object
-local function agitationArea (x, y, w, h, color)
-    return { x = x, y = y, width = w, height = h, color = color }
-end
-
 function spawn.addEntity(monster, entityTable)
 	local entity = {}
 
@@ -56,8 +57,8 @@ function spawn.addEntity(monster, entityTable)
 	-- Spawn point and room number of the entity
 	entity.x, entity.y, entity.roomNumber = chooseSpawnPoint()
 	
-  -- Entity's area of agitation
-  entity.area = agitationArea(entity.x - 200, entity.y - 200, 400, 400, color) --problem doesn't have to do with these dimensions
+  	-- Entity's area of agitation
+  	entity.area = agitationArea(entity.x - 200, entity.y - 200, 400, 400, color) --problem doesn't have to do with these dimensions
   
 	-- Returns the rate of agiation of the monster
 	entity.agitationLevel = agitationLevel(entity.roomNumber, entity.nemesis, entityTable)
@@ -82,6 +83,7 @@ end
 function spawn.draw_area(agitationArea)
         love.graphics.setColor(unpack(agitationArea.color))
         love.graphics.rectangle('line', agitationArea.x, agitationArea.y, agitationArea.width, agitationArea.height)
+        love.graphics.setColor(255, 255, 255, 255)
 end
 
 -- Draws the specified entity
