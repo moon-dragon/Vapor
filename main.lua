@@ -54,8 +54,9 @@ function love.draw()
 	-- screenWidth = love.graphics.getWidth() / scale;
 	-- screenHeight = love.graphics.getHeight() / scale;
 	-- love.graphics.scale(scale)
+  
+  ----------- PLAYER CAMERA MOVEMENT --------------
 
-	----------- PLAYER CAMERA MOVEMENT --------------
 	love.graphics.push()
 
 	-- Scale the map
