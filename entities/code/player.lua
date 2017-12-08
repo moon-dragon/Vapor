@@ -317,6 +317,7 @@ function player.fire(dt)
     end
 end
 
+-- Return the spawn coordinates for the player
 function player.getPlayerSpawn()
 	for i = 1, #mansion.layers do
 		if mansion.layers[i].name == "player" then
@@ -325,10 +326,12 @@ function player.getPlayerSpawn()
 	end
 end
 
+-- Return the player's current health
 function player.getHealth()
 	return player.health
 end
 
+-- Return the current position of the player
 function player.getPosition()
 	return player.x, player.y
 end

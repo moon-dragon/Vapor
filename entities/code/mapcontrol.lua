@@ -3,6 +3,7 @@ map = {}
 local mansion = require("entities/map/map")
 local collision = require("entities/code/tools/collision")
 local spawn = require("entities/code/tools/spawn")
+local player = require("entities/code/player")
 
 function map.load()
 
@@ -154,7 +155,11 @@ function drawTileLayer(mapData, tilseset, quad, tileWidth, tileHeight)
         local rowIndex = math.ceil(i / mapWidth)
         local currentDataIndex = mapData[i]
         if currentDataIndex ~= nil and currentDataIndex ~= 0 then
-            love.graphics.draw(tilseset, quad[currentDataIndex], (colIndex - 1) * tileWidth, (rowIndex - 1) * tileHeight)
+            -- If it's within the boundary of the window
+            local x, y = (colIndex - 1) * tileWidth, (rowIndex - 1) * tileHeight
+            if checkWindowBoundary(x, y) then
+                love.graphics.draw(tilseset, quad[currentDataIndex], x, y)
+            end
         end
     end
 end
@@ -166,4 +171,13 @@ function drawObjectLayer(mapObject)
     end
 end
 
+-- Returns true if the given x and y is within the boundary of the window
+function checkWindowBoundary(x, y)
+    local posx, posy = player.getPosition()
+    local boundx, boundy = math.ceil((love.graphics.getWidth()/2) * (1/0.5)), math.ceil((love.graphics.getHeight()/2) * (1/0.5))
+    if x <= (posx + boundx) and x >= (posx - boundx) and y <= (posy + boundy) and y >= (posy - boundy) then
+        return true
+    end
+    return false
+end
 return map
