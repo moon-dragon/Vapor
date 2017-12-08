@@ -58,7 +58,7 @@ function spawn.addEntity(monster, entityTable)
 	entity.x, entity.y, entity.roomNumber = chooseSpawnPoint()
 	
   	-- Entity's area of agitation
-  	entity.area = agitationArea(entity.x - 200, entity.y - 200, 400, 400, color) --problem doesn't have to do with these dimensions
+  	entity.area = agitationArea(entity.x - 1000, entity.y - 1000, 2000, 2000, color) --problem doesn't have to do with these dimensions
   
 	-- Returns the rate of agiation of the monster
 	entity.agitationLevel = agitationLevel(entity.roomNumber, entity.nemesis, entityTable)

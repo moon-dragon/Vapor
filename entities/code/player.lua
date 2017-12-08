@@ -143,6 +143,12 @@ end
 -- 	player.y = player.y + player.yvel * dt
 -- end
 
+function player.isDamaged()
+  if player.health > 0 then
+    player.health = player.health - 25
+  end
+end
+
 function player.move(dt)
 	-- Update currentTime of the animation
 	animation.currentTime = animation.currentTime + dt
