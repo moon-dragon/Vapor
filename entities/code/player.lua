@@ -82,6 +82,7 @@ function player.update(dt)
 	-- player.phys(dt)
 	player.move(dt)
 	player.fire(dt)
+  player.restoreChances(dt)
 	bullet.update(dt)
 --[[	player.xcollide()
 	player.ycollide(dt)
@@ -319,11 +320,29 @@ end
 -- delay between bullets
 timer = 0
 delay = 0.3
-function player.fire(dt)
+local chances = 5
+local chanceTimer = 5
+
+function player.restoreChances(dt)
+  chanceTimer = chanceTimer - dt
+  if chanceTimer <= 0 then
+    if chances < 5 then
+      chances = chances + 1
+      --print("chance restored")
+    end
+    chanceTimer = chanceTimer + 2 --every 2 seconds a chance is restored
+  end
+end 
+
+function player.fire(dt) --dt
 	timer = timer + dt
-    if (timer == 0 or timer >= delay) and love.keyboard.isDown("f") then
-    	timer = 0
-    	bullet.fire()
+    if (timer == 0 or timer >= delay) and love.keyboard.isDown("f") then --(timer == 0 or timer >= delay) and love.keyboard.isDown("f")
+      timer = 0
+        if chances > 0 then
+        chances = chances - 1
+        --print(chances)
+        bullet.fire()
+      end
     end
 end
 
