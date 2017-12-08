@@ -3,6 +3,8 @@
 bullet = {}
 bulletSpeed = 0
 
+local collision = require("entities/code/tools/collision")
+
 function bullet.load()
 	bulletSpeed = 1500
 end
@@ -15,9 +17,13 @@ end
 
 function bullet.update(dt)
 	for i,v in ipairs(bullet) do
+    --------- BULLET MOVEMENT ---------
 		v.x = v.x + (v.dx * dt)
 		v.y = v.y + (v.dy * dt)
+
+    --------- MONSTER COLLISION ---------
     for j,k in ipairs(entity.getEntities()) do --how is it iterating through entities? how does it know where it is or what im talking about
+                                                -- ^ j is key, k is value, iterate all in entities table
       --print("2nd for")
       --print(k.x , k.y) --prints 256,256 so frankenstein is inserting itself to entities table properly, and
       --the loop is iterating through the proper values of franken's x and y
@@ -27,6 +33,14 @@ function bullet.update(dt)
         table.remove(bullet,i) --automatically undraw?
       end
     end
+
+    -------- WALL/OBJECT COLLISION --------
+    doesCollide = collision.BulletCollisionCheck(v.x, v.y, v.height, v.width)
+    if doesCollide then
+      table.remove(bullet, i)
+    end
+
+
 	end
 end
 

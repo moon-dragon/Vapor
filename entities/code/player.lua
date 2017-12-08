@@ -288,20 +288,20 @@ function player.move(dt)
 
 	-- diagonal bullet direction
 	if love.keyboard.isDown("a") and love.keyboard.isDown("w") then
-		player.bullDir.x = -1
-		player.bullDir.y = -1
+		player.bullDir.x = -.8
+		player.bullDir.y = -.8
 	end
 	if love.keyboard.isDown("d") and love.keyboard.isDown("w") then
-		player.bullDir.x = 1 
-		player.bullDir.y = -1
+		player.bullDir.x = .8
+		player.bullDir.y = -.8
 	end
 	if love.keyboard.isDown("a") and love.keyboard.isDown("s") then
-		player.bullDir.x = -1
-		player.bullDir.y = 1
+		player.bullDir.x = -.8
+		player.bullDir.y = .8
 	end
 	if love.keyboard.isDown("d") and love.keyboard.isDown("s") then
-		player.bullDir.x = 1 
-		player.bullDir.y = 1
+		player.bullDir.x = .8
+		player.bullDir.y = .8
 	end
 end
 
@@ -311,7 +311,7 @@ timer = 0
 delay = 0.3
 function player.fire(dt)
 	timer = timer + dt
-    if (timer == 0 or timer >= delay) and love.keyboard.isDown("f") then
+    if (timer == 0 or timer >= delay) and love.keyboard.isDown("space") then
     	timer = 0
     	bullet.fire()
     end

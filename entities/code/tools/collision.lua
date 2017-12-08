@@ -28,6 +28,16 @@ function collision.CollisionCheck(playerPosX, playerPosY, playerObject, wallObje
 	return false
 end
 
+function collision.BulletCollisionCheck(bulletX, bulletY, bulletH, bulletW)
+	local wallObjects = collision.getWalls()
+	for i = 1, #wallObjects do
+		if CheckCollision(bulletX, bulletY, bulletH, bulletW, wallObjects[i].x, wallObjects[i].y, wallObjects[i].width, wallObjects[i].height) then
+			return true
+		end
+	end
+	return false
+end
+
 -- Get all the object that is used for collision
 function collision.getWalls()
 	for i = 1, #mansion.layers do

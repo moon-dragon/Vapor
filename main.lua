@@ -47,7 +47,7 @@ end
 
 function love.draw()
 	------------------ SCALING ----------------------
-	scale = 0.2 -- lower number = zoom out
+	scale = 0.25 -- lower number = zoom out
 	screenWidth = love.graphics.getWidth() / scale;
 	screenHeight = love.graphics.getHeight() / scale;
 	love.graphics.scale(scale)
