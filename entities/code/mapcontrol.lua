@@ -157,7 +157,7 @@ function drawTileLayer(mapData, tilseset, quad, tileWidth, tileHeight)
         if currentDataIndex ~= nil and currentDataIndex ~= 0 then
             -- If it's within the boundary of the window
             local x, y = (colIndex - 1) * tileWidth, (rowIndex - 1) * tileHeight
-            if checkWindowBoundary(x, y) then
+            if checkWindowBoundary(x, y, 0.5) then
                 love.graphics.draw(tilseset, quad[currentDataIndex], x, y)
             end
         end
@@ -171,10 +171,10 @@ function drawObjectLayer(mapObject)
     end
 end
 
--- Returns true if the given x and y is within the boundary of the window
-function checkWindowBoundary(x, y)
+-- Returns true if the given x and y is within the boundary of the game window
+function checkWindowBoundary(x, y, scale)
     local posx, posy = player.getPosition()
-    local boundx, boundy = math.ceil((love.graphics.getWidth()/2) * (1/0.5)), math.ceil((love.graphics.getHeight()/2) * (1/0.5))
+    local boundx, boundy = math.ceil((love.graphics.getWidth()/2) * (1/scale)), math.ceil((love.graphics.getHeight()/2) * (1/scale))
     if x <= (posx + boundx) and x >= (posx - boundx) and y <= (posy + boundy) and y >= (posy - boundy) then
         return true
     end

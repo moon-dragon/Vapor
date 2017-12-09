@@ -2,6 +2,7 @@ local player = require ("entities.code.player")
 local map = require ("entities.code.mapcontrol")
 local entity = require ("entities.code.Entity")
 local ui = require ("entities.code.tools.ui")
+local fog = require ("entities.code.tools.fogOfWar")
 require ("entities.code.TestEnt")
 
 
@@ -27,6 +28,10 @@ function love.load()
 	-- Load the User Interface
 	ui.load()
 
+	-- Load the fog of war mechanic
+	fog.load()
+
+
 	-- testent.load()
 
 end
@@ -41,11 +46,12 @@ function love.update(dt)
 	entity.update(dt)
   	entity.globalAgit(dt)
   	
-  	-- Updates the User Interface
+  	-- Update the User Interface
   	ui.update(dt)
 
+  	-- Update fog
+  	fog.update(dt)
 
-  	-- testent.update(dt)
 end
 
 function love.draw()
@@ -58,9 +64,12 @@ function love.draw()
 	-- Makes the camera follow the player
 	love.graphics.translate(-playerx + (love.graphics.getWidth() / 2) * (1/scaleX), -playery + (love.graphics.getHeight() / 2) * (1/scaleY))
 
-  	-- love.graphics.translate(-playerx + screenWidth / 2, -playery + screenHeight / 2)
+	-- When the fog of war is active, the view is limited
+	if fog.getIsFogOfWarActive() then
+		fog.drawFogOfWar(playerx, playery, fog.getFogRadius())
+	end
 
-  	-- Draw the map
+	 -- Draw the map
 	map.drawBaseLayer()
 	
 	-- Draw the player
@@ -73,6 +82,8 @@ function love.draw()
 	map.drawTopLayer()
 
 	-- testent.draw()
+
+	love.graphics.setStencilTest() -- only valid when fog of war is active
 	love.graphics.pop()
 
 	--------------- USER INTERFACE -----------------
@@ -102,6 +113,16 @@ function love.keypressed(key, isrepeat)
 		end
 		love.window.setFullscreen(fullscreen)
 	end
+
+	-- Only toggle when key is pressed when the fog of war is active
+	if key == 'l' then
+		if fog.getIsLightOn() then
+			fog.setIsLightOn(false)
+		elseif not fog.getIsLightOn() and fog.getIsFogOfWarActive() then
+			fog.setIsLightOn(true)
+		end
+		fog.toggleLight(fog.getIsLightOn())
+	end
 end
 
 -- Change the scale using the scroll wheel
@@ -117,7 +138,7 @@ function love.wheelmoved(x, y)
     end
 end
 
--- Only used for scaling
+---- Only used for scaling
 function pickUpperScale(choice1, choice2)
 	if choice1 < choice2 then
 		return choice1
@@ -133,3 +154,4 @@ function pickLowerScale(choice1, choice2)
 		return choice2
 	end
 end
+------
