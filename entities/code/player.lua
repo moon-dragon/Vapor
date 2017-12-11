@@ -7,6 +7,7 @@ local mansion = require ("entities/map/map")
 local anim = require ("entities/code/animation/player_anim")
 local collision = require ("entities/code/tools/collision")
 local isAWall, wallX, wallY, wallWidth, wallHeight = nil, nil, nil, nil, nil
+local upgradePoints = 0 --@Patrick don't know the specifics of your implementation but i'll go with this for now
 
 function player.load()
 	bullet.load()
@@ -20,6 +21,10 @@ function player.load()
 
 	-- Starting position of player
 	player.x, player.y = player.getPlayerSpawn()
+  
+  	-- Player width/height
+  	player.width = 100
+  	player.height = 400
 
 	-- Current animation of the player
 	player.current = player.idleLeft
@@ -75,6 +80,11 @@ function player.update(dt)
 	-- player.phys(dt)
 	player.move(dt)
 	player.fire(dt)
+  player.upgradeChances()
+  player.upgradeChancesRestored()
+  --player.freeze(dt)
+  player.restoreChances(dt)
+  --player.restoreFreezeAmmo(dt)
 	bullet.update(dt)
 --[[	player.xcollide()
 	player.ycollide(dt)
@@ -135,6 +145,15 @@ end
 -- 	player.x = player.x + player.xvel * dt
 -- 	player.y = player.y + player.yvel * dt
 -- end
+
+function player.isDamaged()
+  if player.health > 0 then
+    player.health = player.health - 25
+    if player.health <= 0 then
+      love.event.quit()
+    end
+  end
+end
 
 function player.move(dt)
 	-- Update currentTime of the animation
@@ -305,14 +324,135 @@ end
 
 -- delay between bullets
 timer = 0
-delay = 0.3
-function player.fire(dt)
+delay = 0.3 --freezing gun will have 0 delay, but 100 "chances" that decrease each .5 second you hold the fire button,
+local chances = 5
+local chancesRestored = 1 --the chances restored over time
+local maxChances = 5
+--local freezeAmmo = 100
+local chanceTimer = 5
+--local freezeTimer  = 5
+--local stunTimer = 2
+
+function player.restoreChances(dt)
+  chanceTimer = chanceTimer - dt
+  if chanceTimer <= 0 then
+    if chances < maxChances then
+      chances = chances + chancesRestored
+      if chances > maxChances then --if I'm at 4 chances and add 2 to give me 6 total chances when my max is 5
+        chances = maxChances -- set it to the allowed max
+      end
+    end
+    chanceTimer = chanceTimer + 2 --every 2 seconds a chance is restored
+  end
+end
+
+function player.fire(dt) --dt
 	timer = timer + dt
-    if (timer == 0 or timer >= delay) and love.keyboard.isDown("space") then
-    	timer = 0
-    	bullet.fire()
+
+    if (timer == 0 or timer >= delay) and love.keyboard.isDown("space") then --(timer == 0 or timer >= delay) and love.keyboard.isDown("f")
+      timer = 0
+        if chances > 0 then
+        chances = chances - 1
+        --print(chances)
+        bullet.fire()
+      end
     end
 end
+
+function player.incChancesRestored()
+  chancesRestored = chancesRestored + 1
+end
+
+function player.incMaxChances()
+  maxChances = maxChances + 1
+end
+
+function player.decUpgradePts()
+  upgradePoints = upgradePoints - 1
+end
+
+function player.incUpgradePts()
+  upgradePoints = upgradePoints + 1
+end
+
+function player.getUpgradePts()
+  return upgradePoints
+end
+
+function player.getChances()
+  return chances
+end
+
+function player.getMaxChances()
+  return maxChances
+end
+
+function player.upgradeChances()
+  if upgradePoints > 0 then
+    if love.keyboard.isDown("u") then
+      player.incMaxChances()
+      --print(maxChances)
+      --print("upgraded")
+      player.decUpgradePts()
+      --print(upgradePoints)
+    end
+  end
+end
+
+function player.upgradeChancesRestored()
+  if upgradePoints > 0 then
+    if love.keyboard.isDown("o") then
+      player.incChancesRestored()
+      player.decUpgradePts()
+    end
+  end
+end
+
+      
+--[[
+function player.freeze(dt)
+  timer = timer + dt
+    if freezeAmmo > 0 and love.keyboard.isDown("r") then --(timer == 0 or timer >= delay) and love.keyboard.isDown("f")
+      timer = 0
+      freezeAmmo = freezeAmmo - 1
+      --print(freezeAmmo)
+      bullet.fire()
+    end
+end
+]]
+
+--[[
+function player.freezeStun(entity,dt) -- this method could also be thought of as a temporary setter for entity's speed
+  stunTimer = stunTimer - dt
+  print(entity.speed)
+  tempSpeed = 0
+  tempSpeed = entity.speed
+  entity.speed = 0
+
+  if stunTimer <= 0 then
+    end
+    entity.speed = tempSpeed
+    print(entity.speed)
+    --return entity.speed
+
+  --print(entity.speed)
+end
+
+
+function player.restoreFreezeAmmo(dt)
+  freezeTimer = freezeTimer - dt
+  if freezeTimer <= 0 then
+    if freezeAmmo < 100 then
+      freezeAmmo = freezeAmmo + 20
+      if freezeAmmo > 100 then
+        freezeAmmo = 100
+      end
+      --print(freezeAmmo)
+    end
+    freezeTimer = freezeTimer + 2 --every 2 seconds a chance is restored
+  end
+end
+]]
 
 -- Return the spawn coordinates for the player
 function player.getPlayerSpawn()
@@ -335,40 +475,3 @@ end
 
 return player
 
-
---[[function player.xcollide()
-	if player.xvel > 0 then
-		player.px = math.ceil((player.x + 20)/32)
-	elseif player.xvel < 0 then
-		player.px = math.ceil(player.x/32) 
-	else
-		player.prex = 0
-	end
-
-	if TileTable[player.py][player.px] ~= 3 and TileTable[player.py][player.px] ~= 6 then
-		player.xvel = 0
-	end
-end
-
-function player.ycollide(dt)
-	player.py = math.ceil(player.y/32)
-	if (TileTable[player.py + 1][math.ceil(player.x/32)] == 3 and TileTable[player.py + 1][math.ceil((player.x + 20)/32)] == 3) or (TileTable[player.py + 1][math.ceil(player.x/32)] == 6 and TileTable[player.py + 1][math.ceil((player.x + 20)/32)] == 6) or player.health <= 0 then
-		player.yvel = player.yvel + 300 * dt
-	else
-		if player.yvel > 350 then
-			local bf = player.health
-			player.health = player.health - ((player.yvel - 350)/2)
-			print (bf - player.health)
-			player.hit = bf - player.health
-		end
-		player.yvel = 0
-		fall = false
-	end
-end
-
-function player.dyingAndStuff()
-	if player.health <= 0 then
-		print("The player has died! Halting execution . . . ")
-		player.fall = true
-	end
-end--]]

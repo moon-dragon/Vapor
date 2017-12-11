@@ -38,15 +38,14 @@ function bullet.update(dt)
 		v.y = v.y + (v.dy * dt)
 
     --------- MONSTER COLLISION ---------
-    for j,k in ipairs(entity.getEntities()) do --how is it iterating through entities? how does it know where it is or what im talking about
-                                                -- ^ j is key, k is value, iterate all in entities table
-      --print("2nd for")
-      --print(k.x , k.y) --prints 256,256 so frankenstein is inserting itself to entities table properly, and
-      --the loop is iterating through the proper values of franken's x and y
-      if(bullet.collides(v,k)) then
-        print("hit")
+    for j,k in ipairs(entity.getEntities()) do
+      if bullet.collides(v,k) then
+        --print("hit")
         entity.decrementAgit(k)
         table.remove(bullet,i) --automatically undraw?
+      --elseif(bullet.collides(v,k) and love.keyboard.isDown("r")) then
+        --player.freezeStun(k,dt)
+        --table.remove(bullet,i)
       end
     end
 

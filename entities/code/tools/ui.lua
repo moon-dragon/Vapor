@@ -10,7 +10,6 @@ local fog = require ("entities/code/tools/fogOfWar")
 local anim = require ("entities/code/animation/health_anim")
 
 function ui.load()
-
 	-- Load time
 	time.load()
 
@@ -28,6 +27,13 @@ function ui.load()
 	ui.face.threes = anim.Threes()
 	ui.face.twos = anim.Twos()
 	ui.face.ones = anim.Ones()
+
+	-- Position of UI elements
+	-- ui.timeX, ui.timeY = 10, 20
+	-- ui.cycleX, ui.cycleY = 10, 60
+	-- ui.healthX, ui.healthY = 10, 100
+	  ui.ammoX, ui.ammoY = 10, 140
+	-- ui.upgradeX, ui.upgradeY = 10, 180
 
 	-- Keeps track of the current face animation
 	ui.face.current = ui.face.full
@@ -51,6 +57,16 @@ function ui.update(dt)
 	-- Update time
 	time.update(dt)
 
+
+	-- -- Updates the cycle count
+	-- if convert(ui.counter2, ui.cycleLength) >= ui.cycleLength then
+	-- 	-- Play once it reached a new cycle
+	-- 	love.audio.play(cycleMusic)
+	-- 	ui.cycleCounter = ui.cycleCounter + 1
+	-- 	ui.counter2 = 0
+	-- end
+
+	-- ui.health = player.getHealth()
 end
 
 function ui.draw()
@@ -61,11 +77,19 @@ function ui.draw()
 	love.graphics.draw(ui.face.current[spriteNum], -25, 0)
 
 	love.graphics.setFont(FONT)
+
 	love.graphics.printf("Cycle: " .. time.getCycleCounter().. ", Time: " .. time.getTimeCounter(), 130, 43, 1000, left)
 	love.graphics.printf("Health: " .. player.getHealth(), 130, 78, 1000, left)	
 
 	love.graphics.setFont(FONT2)
 	love.graphics.printf("Candle Timer: " .. tostring(fog.getTimer()), 130, 113, 1000, left)
+
+	-- love.graphics.printf("Time: " .. ui.counter2, ui.timeX, ui.timeY, 1000, left)
+	-- love.graphics.printf("Cycle: " .. ui.cycleCounter, ui.cycleX, ui.cycleY, 1000, left)
+	-- love.graphics.printf("Health: " .. ui.health, ui.healthX, ui.healthY, 1000, left)
+  	love.graphics.printf("Ammo: " .. player.getChances() .. "/" .. player.getMaxChances(), ui.ammoX, ui.ammoY, 1000, left) 
+  	--love.graphics.printf("UpgradePts: " .. player.getUpgradePts(), ui.upgradeX, ui.upgradeY, 1000, left)
+
 
 end
 

@@ -1,6 +1,14 @@
 local spawn = {}
 local mansion = require ("entities/map/map")
 local neighbor = require ("entities/code/tools/neighbor")
+local color = {255, 0, 0, 255} --red
+
+
+--agitation area dimensions, basically a rectangle object
+local function agitationArea (posx, posy, w, h, color)
+	return { x = posx, y = posy, width = w, height = h, color = color }
+end
+
 
 -- Checks to see if there's no available spawn points
 local isFull = false
@@ -52,6 +60,10 @@ function spawn.addEntity(monster, entityTable)
 	-- Spawn point and room number of the entity
 	entity.x, entity.y, entity.roomNumber = chooseSpawnPoint()
 
+	
+  	-- -- Entity's area of agitation
+  	-- entity.area = agitationArea(entity.x - 1000, entity.y - 1000, 2000, 2000, color) --problem doesn't have to do with these dimensions
+  
 	-- Returns the rate of agiation of the monster
 	entity.agitationLevel = agitationLevel(entity.roomNumber, entity.nemesis, entityTable)
 
@@ -86,6 +98,28 @@ function spawn.getCurrentMovement(table,index)
 end
 
 
+-- Draw the entity's agitation area
+function spawn.draw_area(agitationArea)
+        love.graphics.setColor(unpack(agitationArea.color))
+        love.graphics.rectangle('line', agitationArea.x, agitationArea.y, agitationArea.width, agitationArea.height)
+        love.graphics.setColor(255, 255, 255, 10)
+end
+
+
+--Grow the entity's agitation area if at max agitation
+local growTimer = 0
+
+-- function spawn.grow_area(dt)
+--   growTimer = growTimer - dt
+--   if growTimer <= 0 then
+--     for i,v in ipairs(entity.getEntities()) do
+--       v.area.width = v.area.width + 50
+--       v.area.height = v.area.height + 50
+--     end
+--     growTimer = growTimer + 2
+--   end
+-- end
+  
 -- Draws the specified entity
 function spawn.drawEntity(entity)
 	-- Determines the index of the next animation
@@ -99,6 +133,29 @@ function spawn.drawEntity(entity)
 	love.graphics.setFont(FONT)
 	love.graphics.printf(entity.currentAgitation, entity.x + 80, entity.y - 30 , 40, left)
 end
+
+--[[
+function spawn.wander()
+
+player.rand_number = math.random(100)
+
+  if player.rand_number < 99 then
+    -- do something
+    rand2 = math.random(4) --up,down,left,right
+    rand3 = 400 - (math.random(2) * 100) --move 300 or 200 px
+    
+    if rand2 == 1 then
+      entity.y = entity.y - rand3
+    elseif rand2 == 2 then
+      entity.y = entity.y + rand3
+    elseif rand2 == 3 then
+      entity.x = entity.x - rand3
+    elseif rand2 == 4 then
+      entity.x = entity.x + rand3
+    end
+  end
+end
+]]
 
 -- Returns all the objects that deals with entity spawning
 function spawn.getSpawnPoints()

@@ -96,10 +96,6 @@ function love.draw()
 	love.graphics.pop()
 end
 
-function love.event.quit()
-	love.event.quit()
-end
-
 
 --------------- WINDOW CONFIGURATION -------------------
 
@@ -127,13 +123,13 @@ end
 
 -- Change the scale using the scroll wheel
 function love.wheelmoved(x, y)
-    if 0.6 <= scaleX and scaleX <= 1.0 or 0.6 <= scaleY and scaleY <= 1.0 then
+    if 0.7 <= scaleX and scaleX <= 1.0 or 0.7 <= scaleY and scaleY <= 1.0 then
     	if y > 0 then
     		scaleX = pickUpperScale(scaleX + 0.1, 1.0)
     		scaleY = pickUpperScale(scaleY + 0.1, 1.0)
     	elseif y < 0 then
-    		scaleX = pickLowerScale(scaleX - 0.1, 0.6)
-    		scaleY = pickLowerScale(scaleY - 0.1, 0.6)
+    		scaleX = pickLowerScale(scaleX - 0.1, 0.7)
+    		scaleY = pickLowerScale(scaleY - 0.1, 0.7)
     	end
     end
 end

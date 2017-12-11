@@ -3,8 +3,11 @@ entity = {}
 -- All entities that currently exist in the map
 entities = {}
 
-local globalAgitationTimer = 10
 local spawnMusic = love.audio.newSource("entities/music/knocking.wav")
+
+local globalAgitationTimer = 10
+local damageTimer = 0
+local moveTimer = 0
 
 local spawn = require("entities/code/tools/spawn")
 local movement = require("entities/code/tools/movement")
@@ -35,7 +38,16 @@ function entity.load()
 end
 
 function entity.update(dt)
-
+	entity.agitationDamageCheck(dt)
+  
+	  -- for i,v in ipairs(entity.getEntities()) do
+	  --   if v.currentAgitation == v.maxAgitation then
+	  --     --print("hi")
+	  --     spawn.grow_area(dt)
+	  --     --print("hi")
+	  --   end
+	  -- end
+  
 	-- If there's no chosen cycle and the mansion is not full, choose now
 	if entity.chosenCycle == nil and spawn.getStatus() == false then
 		local j = spawn.generateCycleSpawn()
@@ -79,6 +91,8 @@ function entity.draw()
 	for i = 1, #entities do
 		spawn.drawEntity(entities[i])
 	end
+  
+  	entity.agitationDraw()
 end
 
 
@@ -111,6 +125,27 @@ function entity.decrementAgit(table)
   end
 end
 
+--Just draws entity agitation area
+function entity.agitationDraw()
+  --max agitation check and AoE damage
+  for i,v in ipairs(entities) do
+    if(v.currentAgitation >= v.maxAgitation) then
+      spawn.draw_area(v.area)
+    end
+  end
+end
+
+--Actually deals damage to the player upon max agitation
+function entity.agitationDamageCheck(dt)
+  --max agitation check and AoE damage
+  for i,v in ipairs(entities) do
+    if(v.currentAgitation >= v.maxAgitation) then
+        if(bullet.collides(player,v.area)) then --area is the entity's agitation area
+          entity.agitationDamage(dt)
+        end
+    end
+  end
+end
 
 function entity.getEntities()
   return entities
@@ -128,6 +163,14 @@ function entity.globalAgit(dt)
     globalAgitationTimer = globalAgitationTimer + 5
   end
 end
+
+function entity.agitationDamage(dt)
+  damageTimer = damageTimer - dt
+  if damageTimer <= 0 then
+    player.isDamaged()
+    damageTimer = damageTimer + 5
+  end
+end  
 
 return entity
 
