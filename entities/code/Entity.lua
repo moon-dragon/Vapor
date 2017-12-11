@@ -21,6 +21,17 @@ function entity.load()
 	spawn.addEntity("ghost", entities)
 	spawn.addEntity("witch", entities)
 
+	-- Keeps track of time for movement
+	counter1 = 0
+	counter2 = 0
+
+	-- The length of each set of movements
+	movementDuration = 1
+
+	-- Check to see if the player is moving
+	isMoving = false
+
+
 end
 
 function entity.update(dt)
@@ -36,10 +47,31 @@ function entity.update(dt)
 		entity.spawnMonster(monster.getAMonster())
 	end
 
-	-- TEMPORARY MOVEMENT (Currently all idle)
-	movement.movement(0, 0, entities, 1, dt)
-	movement.movement(0, 0, entities, 2, dt)
-	movement.movement(0, 0, entities, 3, dt)
+	-- MOVEMENT
+
+		if isMoving == false then
+			for i = 1, #entities do
+				spawn.seCurrentMovement(math.random(0, 2), math.random(0, 2), entities, i)
+			end
+			isMoving = true
+		end
+		for i = 1, #entities do
+			local x, y = spawn.getCurrentMovement(entities,i)
+			movement.movement(x, y, entities, i, dt)
+		end
+
+		counter1 = counter1 + 1
+		if counter1 % 101 >= 100 then
+			counter2 = counter2 + 1
+		end
+		
+		if counter2 == movementDuration then
+			direction = false
+			counter1 = 0
+			counter2 = 0
+			movementDuration = math.random(1, 2)
+			isMoving = false
+		end
 
 end
 

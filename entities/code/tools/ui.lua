@@ -51,8 +51,6 @@ function ui.update(dt)
 	-- Update time
 	time.update(dt)
 
-
-
 end
 
 function ui.draw()

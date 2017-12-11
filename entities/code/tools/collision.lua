@@ -40,11 +40,34 @@ end
 
 -- Get all the object that is used for collision
 function collision.getWalls()
+	local collidable = {}
 	for i = 1, #mansion.layers do
 		if mansion.layers[i].name == "collision" then
-			return mansion.layers[i].objects
+			for j = 1, #mansion.layers[i].objects do
+				table.insert(collidable, mansion.layers[i].objects[j])
+			end
 		end
 	end
+	return collidable
 end
+
+function collision.getWallsAndDoors()
+	local collidable = {}
+	for i = 1, #mansion.layers do
+		if mansion.layers[i].name == "collision" then
+			for j = 1, #mansion.layers[i].objects do
+				table.insert(collidable, mansion.layers[i].objects[j])
+			end
+		end
+		if mansion.layers[i].name == "door" then
+			for j = 1, #mansion.layers[i].objects do
+				table.insert(collidable, mansion.layers[i].objects[j])
+			end
+		end
+	end
+	return collidable
+end
+
+
 
 return collision

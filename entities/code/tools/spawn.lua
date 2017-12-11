@@ -48,10 +48,10 @@ function spawn.addEntity(monster, entityTable)
 
 	-- Max and Current agitation of a monster
 	entity.maxAgitation, entity.currentAgitation = char.maxAgitation, 0
-
+	
 	-- Spawn point and room number of the entity
 	entity.x, entity.y, entity.roomNumber = chooseSpawnPoint()
-	
+
 	-- Returns the rate of agiation of the monster
 	entity.agitationLevel = agitationLevel(entity.roomNumber, entity.nemesis, entityTable)
 
@@ -69,7 +69,22 @@ function spawn.addEntity(monster, entityTable)
 
 	-- Insert the newly created entity in entityTable
 	table.insert(entityTable, entity)
+
+	-- The current movement of the entity
+	entity.currentMovementX = nil
+	entity.currentMovementY = nil
 end
+
+
+function spawn.seCurrentMovement(x,y,table,index)
+	table[index].currentMovementX = x
+	table[index].currentMovementY = y
+end
+
+function spawn.getCurrentMovement(table,index)
+	return table[index].currentMovementX, table[index].currentMovementY
+end
+
 
 -- Draws the specified entity
 function spawn.drawEntity(entity)

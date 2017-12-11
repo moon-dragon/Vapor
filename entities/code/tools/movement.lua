@@ -21,7 +21,7 @@ function movement.movement(XDirection, YDirection, entityTable, entityID, dt)
 	-- RIGHT direction
 	if XDirection == 2 then 				
 		
-		isAWall, wallX, wallY, wallWidth, wallHeight = collision.CollisionCheck(entity.x + entity.speed, entity.y, entity.current[1], collision.getWalls())
+		isAWall, wallX, wallY, wallWidth, wallHeight = collision.CollisionCheck(entity.x + entity.speed, entity.y, entity.current[1], collision.getWallsAndDoors())
 		if not isAWall then
 			entity.x = entity.x + entity.speed
 		else
@@ -38,7 +38,7 @@ function movement.movement(XDirection, YDirection, entityTable, entityID, dt)
 	-- LEFT direction
 	elseif XDirection == 1 then 			
 		
-		isAWall, wallX, wallY, wallWidth, wallHeight = collision.CollisionCheck(entity.x - entity.speed, entity.y, entity.current[1], collision.getWalls())
+		isAWall, wallX, wallY, wallWidth, wallHeight = collision.CollisionCheck(entity.x - entity.speed, entity.y, entity.current[1], collision.getWallsAndDoors())
 		if not isAWall then
 			entity.x = entity.x - entity.speed
 		else
@@ -71,7 +71,7 @@ function movement.movement(XDirection, YDirection, entityTable, entityID, dt)
 	-- UP movement
 	if YDirection == 1 then
 
-		isAWall, wallX, wallY, wallWidth, wallHeight = collision.CollisionCheck(entity.x, entity.y - entity.speed, entity.current[1], collision.getWalls())
+		isAWall, wallX, wallY, wallWidth, wallHeight = collision.CollisionCheck(entity.x, entity.y - entity.speed, entity.current[1], collision.getWallsAndDoors())
 		if not isAWall then
 			entity.y = entity.y - entity.speed
 		else
@@ -94,7 +94,7 @@ function movement.movement(XDirection, YDirection, entityTable, entityID, dt)
 	-- DOWN movement
 	elseif YDirection == 2 then
 		
-		isAWall, wallX, wallY, wallWidth, wallHeight = collision.CollisionCheck(entity.x, entity.y + entity.speed, entity.current[1], collision.getWalls())
+		isAWall, wallX, wallY, wallWidth, wallHeight = collision.CollisionCheck(entity.x, entity.y + entity.speed, entity.current[1], collision.getWallsAndDoors())
 		if not isAWall then
 			entity.y = entity.y + (entity.speed)
 		else
@@ -117,5 +117,8 @@ function movement.movement(XDirection, YDirection, entityTable, entityID, dt)
 	end
 	entityTable[entityID] = entity
 end
+
+
+
 
 return movement
