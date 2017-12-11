@@ -152,6 +152,9 @@ end
 function player.isDamaged()
   if player.health > 0 then
     player.health = player.health - 25
+    if player.health <= 0 then
+      love.event.quit()
+    end
   end
 end
 
