@@ -56,10 +56,10 @@ function ui.update(dt)
 end
 
 function ui.draw()
-	-- Determines the index of the next animation
+	-- Determine the index of the next animation
 	local spriteNum = math.floor(ui.animation.currentTime * ui.animation.currentDuration % #ui.face.current) + 1
 	
-	-- Draws the player
+	-- Draw the face
 	love.graphics.draw(ui.face.current[spriteNum], -25, 0)
 
 	love.graphics.setFont(FONT)

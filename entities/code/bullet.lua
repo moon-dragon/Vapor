@@ -1,17 +1,33 @@
 --https://love2d.org/wiki/Tutorial:Fire_Toward_Mouse for the overall bullet implementation
 --https://love2d.org/forums/viewtopic.php?t=47565 to make the bullets fire based on player direction and not mouse direction
 bullet = {}
+bullet.animation = {}
+bullet.food = {}
 bulletSpeed = 0
 
 local collision = require("entities/code/tools/collision")
+local anim = require ("entities/code/animation/food_anim")
 
 function bullet.load()
 	bulletSpeed = 1500
+
+  bullet.food = anim.foodSpinAnimation()
+
+  -- Animation current time
+  bullet.animation.currentTime = 0
+
+  -- Animation duration
+  bullet.animation.currentDuration = 7
 end
   
 function bullet.draw()
 	for i,v in ipairs(bullet) do
-		love.graphics.rectangle("fill", v.x, v.y, 50,50)
+    -- Determine the index of the next animation
+    local spriteNum = math.floor(ui.animation.currentTime * ui.animation.currentDuration % #ui.face.current) + 1
+  
+    -- Draw rge bullet
+    love.graphics.draw(bullet.food[spriteNum], v.x, v.y)
+    -- love.graphics.rectangle("fill", v.x, v.y, 50,50)
 	end
 end
 
