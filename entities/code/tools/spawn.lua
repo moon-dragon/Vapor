@@ -100,7 +100,28 @@ function spawn.drawEntity(entity)
 	love.graphics.printf(entity.currentAgitation, entity.x + 80, entity.y - 30 , 40, left)
 end
 
+--[[
+function spawn.wander()
 
+player.rand_number = math.random(100)
+
+  if player.rand_number < 99 then
+    -- do something
+    rand2 = math.random(4) --up,down,left,right
+    rand3 = 400 - (math.random(2) * 100) --move 300 or 200 px
+    
+    if rand2 == 1 then
+      entity.y = entity.y - rand3
+    elseif rand2 == 2 then
+      entity.y = entity.y + rand3
+    elseif rand2 == 3 then
+      entity.x = entity.x - rand3
+    elseif rand2 == 4 then
+      entity.x = entity.x + rand3
+    end
+  end
+end
+]]
 -- Returns all the objects that deals with entity spawning
 function spawn.getSpawnPoints()
 	for i = 1, #mansion.layers do

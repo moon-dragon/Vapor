@@ -9,8 +9,38 @@ local collision = require ("entities/code/tools/collision")
 --		- entityTable: the table that holds all of the entity
 --		- entityID: the ID of an entity
 -- 		- dt: Delta time
-function movement.movement(XDirection, YDirection, entityTable, entityID, dt)
+
+--[[
+--local testCount = 0
+function movement.movementXDelay(dt)
+  --Delay timer
+  moveTimer = moveTimer - dt
+  if moveTimer <= 0 then
+    XDirection = math.random(0,2)
+    testCount = testCount + 1
+    --print(testCount)
+    --print(XDirection)
+  end
+  --print(XDirection)
+  moveTimer = moveTimer + 2 --every 2 seconds potentially change direction
+  return XDirection
+end
+
+function movement.movementYDelay(dt)
+  --Delay timer
+  moveTimer = moveTimer - dt
+  if moveTimer <= 0 then
+    YDirection = math.random(0,2)
+  end
+  --print(YDirection)
+  moveTimer = moveTimer + 2 --every 2 seconds potentially change direction
+  return YDirection
+end
+]]
+
+function movement.movement(XDirection, YDirection, entityTable, entityID, dt) --make xd and yd local vars, 
 	local isAWall, wallX, wallY, wallWidth, wallHeight = false, 0, 0, 0, 0
+  
 
 	-- Find the entity with the matching entityID
 	local entity = entityTable[entityID]
@@ -23,7 +53,9 @@ function movement.movement(XDirection, YDirection, entityTable, entityID, dt)
 		
 		isAWall, wallX, wallY, wallWidth, wallHeight = collision.CollisionCheck(entity.x + entity.speed, entity.y, entity.current[1], collision.getWalls())
 		if not isAWall then
-			entity.x = entity.x + entity.speed
+      --while XDirection == 2 do
+        entity.x = entity.x + entity.speed
+      --end
 		else
 			entity.x =  wallX - entity.current[1]:getWidth()
 		end

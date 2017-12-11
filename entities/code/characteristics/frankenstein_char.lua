@@ -1,7 +1,7 @@
 local frankenstein = {}
 frankenstein.animation = {}
 
-frankenstein.speed = 4
+frankenstein.speed = 100 -- multiplied speed by 10, to accommodate current implementation of local monster wandering
 frankenstein.nemesis = {}
 frankenstein.maxAgitation = 8
 frankenstein.animation.idleDuration = 4

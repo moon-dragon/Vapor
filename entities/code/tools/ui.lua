@@ -9,6 +9,8 @@ function ui.load()
 	ui.timeX, ui.timeY = 10, 20
 	ui.cycleX, ui.cycleY = 10, 60
 	ui.healthX, ui.healthY = 10, 100
+  ui.ammoX, ui.ammoY = 10, 140
+  ui.upgradeX, ui.upgradeY = 10, 180
 
 	-- Seconds that needs to passed before cycle resets
 	ui.cycleLength = 10
@@ -46,6 +48,8 @@ function ui.draw()
 	love.graphics.printf("Time: " .. ui.counter2, ui.timeX, ui.timeY, 1000, left)
 	love.graphics.printf("Cycle: " .. ui.cycleCounter, ui.cycleX, ui.cycleY, 1000, left)
 	love.graphics.printf("Health: " .. ui.health, ui.healthX, ui.healthY, 1000, left)
+  love.graphics.printf("Ammo: " .. player.getChances() .. "/" .. player.getMaxChances(), ui.ammoX, ui.ammoY, 1000, left) 
+  love.graphics.printf("UpgradePts: " .. player.getUpgradePts(), ui.upgradeX, ui.upgradeY, 1000, left)
 
 end
 

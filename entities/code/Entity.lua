@@ -4,7 +4,8 @@ entity = {}
 entities = {}
 
 globalAgitationTimer = 10
-damageTimer = 10
+damageTimer = 0
+moveTimer = 0
 
 local spawn = require("entities/code/tools/spawn")
 local movement = require("entities/code/tools/movement")
@@ -26,31 +27,39 @@ function entity.load()
 end
 
 function entity.update(dt)
+  --movement.movementXDelay(dt)
+  --movement.movementYDelay(dt)
 	-- TEMPORARY MOVEMENT (Currently all idle)
-	movement.movement(0, 0, entities, 1, dt)
+	--movement.movement(movement.movementXDelay(dt), movement.movementYDelay(dt), entities, 1, dt)
+  movement.movement(0, 0, entities, 1, dt)
 	movement.movement(0, 0, entities, 2, dt)
 	movement.movement(0, 0, entities, 3, dt)
 
-	-- movement.movement(0, 0, entities, 4, dt)
-	-- movement.movement(0, 0, entities, 5, dt)
-	-- movement.movement(0, 0, entities, 6, dt)
+	--movement.movement(0, 0, entities, 4, dt)
+	--movement.movement(0, 0, entities, 5, dt)
+	--movement.movement(0, 0, entities, 6, dt)
 
-	-- movement.movement(0, 0, entities, 7, dt)
-	-- movement.movement(0, 0, entities, 8, dt)
-	-- movement.movement(0, 0, entities, 9, dt)
+	--movement.movement(0, 0, entities, 7, dt)
+	--movement.movement(0, 0, entities, 8, dt)
+	--movement.movement(0, 0, entities, 9, dt)
+--Delay timer
+--[[
+  moveTimer = moveTimer - dt
+  if moveTimer <= 0 then
+    movement.movement(math.random(0, 2), math.random(0, 2), entities, 1, dt)
+    movement.movement(math.random(0, 2), math.random(0, 2), entities, 2, dt)
+    movement.movement(math.random(0, 2), math.random(0, 2), entities, 3, dt)
 
-	-- movement.movement(math.random(0, 2), math.random(0, 2), entities, 1, dt)
-	-- movement.movement(math.random(0, 2), math.random(0, 2), entities, 2, dt)
-	-- movement.movement(math.random(0, 2), math.random(0, 2), entities, 3, dt)
+    -- movement.movement(math.random(0, 2), math.random(0, 2), entities, 4, dt)
+    -- movement.movement(math.random(0, 2), math.random(0, 2), entities, 5, dt)
+    -- movement.movement(math.random(0, 2), math.random(0, 2), entities, 6, dt)
 
-	-- movement.movement(math.random(0, 2), math.random(0, 2), entities, 4, dt)
-	-- movement.movement(math.random(0, 2), math.random(0, 2), entities, 5, dt)
-	-- movement.movement(math.random(0, 2), math.random(0, 2), entities, 6, dt)
-
-	-- movement.movement(math.random(0, 2), math.random(0, 2), entities, 7, dt)
-	-- movement.movement(math.random(0, 2), math.random(0, 2), entities, 8, dt)
-	-- movement.movement(math.random(0, 2), math.random(0, 2), entities, 9, dt)
-  
+    -- movement.movement(math.random(0, 2), math.random(0, 2), entities, 7, dt)
+    -- movement.movement(math.random(0, 2), math.random(0, 2), entities, 8, dt)
+    -- movement.movement(math.random(0, 2), math.random(0, 2), entities, 9, dt)
+    moveTimer = moveTimer + 3 --every .25 seconds potentially change direction
+  end
+]]
   entity.agitationDamageCheck(dt)
 end
 

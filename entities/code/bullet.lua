@@ -21,10 +21,13 @@ function bullet.update(dt)
       --print("2nd for")
       --print(k.x , k.y) --prints 256,256 so frankenstein is inserting itself to entities table properly, and
       --the loop is iterating through the proper values of franken's x and y
-      if(bullet.collides(v,k)) then
-        print("hit")
+      if(bullet.collides(v,k) and love.keyboard.isDown("f")) then
+        --print("hit")
         entity.decrementAgit(k)
         table.remove(bullet,i) --automatically undraw?
+      --elseif(bullet.collides(v,k) and love.keyboard.isDown("r")) then
+        --player.freezeStun(k,dt)
+        --table.remove(bullet,i)
       end
     end
 	end
