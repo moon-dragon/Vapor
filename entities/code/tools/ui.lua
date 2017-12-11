@@ -3,13 +3,11 @@ ui.face = {}
 ui.animation = {}
 
 local FONT = love.graphics.newFont("entities/img/font.ttf", 36)
+local FONT2 = love.graphics.newFont("entities/img/font.ttf", 24)
 local player = require ("entities/code/player")
 local time = require ("entities/code/tools/time")
 local fog = require ("entities/code/tools/fogOfWar")
 local anim = require ("entities/code/animation/health_anim")
-
--- TEMPORARY
-local entity = require ("entities/code/entity")
 
 function ui.load()
 
@@ -65,10 +63,11 @@ function ui.draw()
 	love.graphics.draw(ui.face.current[spriteNum], -25, 0)
 
 	love.graphics.setFont(FONT)
-	love.graphics.printf("Health: " .. player.getHealth(), 130, 43, 1000, left)
-	love.graphics.printf("Time: " .. time.getTimeCounter(), 130, 78, 1000, left)
-	love.graphics.printf("Cycle: " .. time.getCycleCounter(), 130, 113, 1000, left)
-	-- love.graphics.printf("Candle Timer: " .. tostring(fog.getTimer()), ui.candleX, ui.candleY, 1000, left)
+	love.graphics.printf("Cycle: " .. time.getCycleCounter().. ", Time: " .. time.getTimeCounter(), 130, 43, 1000, left)
+	love.graphics.printf("Health: " .. player.getHealth(), 130, 78, 1000, left)	
+
+	love.graphics.setFont(FONT2)
+	love.graphics.printf("Candle Timer: " .. tostring(fog.getTimer()), 130, 113, 1000, left)
 
 end
 
