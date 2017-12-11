@@ -8,7 +8,7 @@ function fog.load()
 	fog.fogRadius = 120
 
 	-- Check if the fog of war is active
-	fog.isFogOfWarActive = true
+	fog.isFogOfWarActive = false
 
 	-- Check if light is on
 	fog.isLightOn = false
@@ -19,19 +19,22 @@ end
 
 function fog.update(dt)
 	-- Activate fog of war mechanic every 4 cycle
-	fog.isFogOfWarActive = checkFog(4)
-	if fog.isLightOn then
+	fog.isFogOfWarActive = checkFog(2)
+	if fog.isLightOn and fog.isFogOfWarActive then
 		counter = counter + 1
 		if counter % 101 >= 100 and fog.timer ~= 0 then
 			fog.timer = fog.timer - 1
 		end
+	elseif fog.isLightOn and fog.isFogOfWarActive == false then
+		fog.isLightOn = false
+	else
+		restoreChances(dt)
 	end
 
 	if fog.timer == 0 then
 		fog.isLightOn = false
 		fog.toggleLight(fog.isLightOn)
 	end
-	restoreChances(dt)
 end
 
 -- Limits the view of the player
@@ -56,7 +59,7 @@ local chanceTimer = 5
 function restoreChances(dt)
 	chanceTimer = chanceTimer - dt
   	if chanceTimer <= 0 then
-    	if fog.timer < 5 and fog.isLightOn == false then
+    	if fog.timer < 5 and (fog.isLightOn == false or (fog.isLightOn and fog.isFogOfWarActive == false)) then
       		fog.timer = fog.timer + 1
     	end
     	chanceTimer = chanceTimer + 2 --every 2 seconds a chance is restored

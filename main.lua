@@ -118,7 +118,7 @@ function love.keypressed(key, isrepeat)
 	if key == 'l' then
 		if fog.getIsLightOn() then
 			fog.setIsLightOn(false)
-		elseif not fog.getIsLightOn() and fog.getIsFogOfWarActive() then
+		elseif fog.getIsLightOn() == false and fog.getIsFogOfWarActive() then
 			fog.setIsLightOn(true)
 		end
 		fog.toggleLight(fog.getIsLightOn())
