@@ -92,10 +92,6 @@ function love.draw()
 	love.graphics.pop()
 end
 
-function love.event.quit()
-	love.event.quit()
-end
-
 
 --------------- WINDOW CONFIGURATION -------------------
 
