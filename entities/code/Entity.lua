@@ -125,12 +125,23 @@ function entity.decrementAgit(table)
   end
 end
 
+-- --Just draws entity agitation area
+-- function entity.agitationDraw()
+--   --max agitation check and AoE damage
+--   for i,v in ipairs(entities) do
+--     if(v.currentAgitation >= v.maxAgitation) then
+--       	spawn.draw_area(v.area)
+--     end
+--   end
+-- end
+
 --Just draws entity agitation area
 function entity.agitationDraw()
   --max agitation check and AoE damage
-  for i,v in ipairs(entities) do
-    if(v.currentAgitation >= v.maxAgitation) then
-      spawn.draw_area(v.area)
+  for i = 1, #entities do
+    if(entities[i].currentAgitation >= entities[i].maxAgitation) then
+      	spawn.setArea(spawn.getX(entities, i), spawn.getY(entities, i), entities, i)
+      	spawn.draw_area(entities[i].area)
     end
   end
 end

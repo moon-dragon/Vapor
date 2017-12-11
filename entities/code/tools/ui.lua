@@ -87,7 +87,7 @@ function ui.draw()
 	-- love.graphics.printf("Time: " .. ui.counter2, ui.timeX, ui.timeY, 1000, left)
 	-- love.graphics.printf("Cycle: " .. ui.cycleCounter, ui.cycleX, ui.cycleY, 1000, left)
 	-- love.graphics.printf("Health: " .. ui.health, ui.healthX, ui.healthY, 1000, left)
-  	love.graphics.printf("Ammo: " .. player.getChances() .. "/" .. player.getMaxChances(), ui.ammoX, ui.ammoY, 1000, left) 
+  	love.graphics.printf("Ammo: " .. player.getChances() .. "/" .. player.getMaxChances(), 130, ui.ammoY, 1000, left) 
   	--love.graphics.printf("UpgradePts: " .. player.getUpgradePts(), ui.upgradeX, ui.upgradeY, 1000, left)
 
 

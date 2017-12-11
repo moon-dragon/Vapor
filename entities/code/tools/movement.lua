@@ -1,6 +1,7 @@
 local movement = {}
 
 local collision = require ("entities/code/tools/collision")
+local spawn = require ("entities/code/tools/spawn")
 
 -- Move the specified entity in a specific direction
 -- Format:
@@ -60,6 +61,9 @@ function movement.movement(XDirection, YDirection, entityTable, entityID, dt) --
 			entity.x =  wallX - entity.current[1]:getWidth()
 		end
 
+		-- update entity coordinate
+		entityTable[entityID].x = entity.x
+
 		-- Plays the WALKING RIGHT animation
 		entity.current = entity.walkingRight
 		entity.direction = "right"
@@ -76,6 +80,9 @@ function movement.movement(XDirection, YDirection, entityTable, entityID, dt) --
 		else
 			entity.x =  wallX + wallWidth
 		end
+
+		-- update entity coordinate
+		entityTable[entityID].x = entity.x
 
 
 		-- Plays the WALKING LEFT animation
@@ -110,6 +117,9 @@ function movement.movement(XDirection, YDirection, entityTable, entityID, dt) --
 			entity.y =  wallY + wallHeight
 		end
 
+		-- update entity coordinate
+		entityTable[entityID].y = entity.y
+
 		-- Determine which walking animation to play
 		if entity.direction == "left" then
 			-- Plays the WALKING LEFT animation
@@ -132,6 +142,9 @@ function movement.movement(XDirection, YDirection, entityTable, entityID, dt) --
 		else
 			entity.y = wallY - entity.current[1]:getHeight()
 		end
+
+		-- update entity coordinate
+		entityTable[entityID].y = entity.y
 
 		-- Determine which walking animation to play
 		if entity.direction == "left" then
