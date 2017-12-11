@@ -2,6 +2,9 @@ local spawn = {}
 local mansion = require ("entities/map/map")
 local neighbor = require ("entities/code/tools/neighbor")
 
+-- Checks to see if there's no available spawn points
+local isFull = false
+
 -- Adds a new entity to the list of entities
 -- Format:
 -- 		- monster: the name of the monster
@@ -91,10 +94,16 @@ function spawn.getSpawnPoints()
 	end
 end
 
+-- Returns a random number which represent the cycle count to which the monster will spawn
+function spawn.generateCycleSpawn()
+	return love.math.random(3, 6)
+end
 
 
-
-
+-- Returns the status of the spawn points: If there any left or if it's full
+function spawn.getStatus()
+	return isFull
+end
 
 
 ------ HELPER FUNCTION ------
@@ -147,6 +156,14 @@ function availableSpawnPoints()
 			table.insert(spawnPoints, {points[i].x, points[i].y, points[i].properties["roomNumber"]})
 		end
 	end
+
+	-- Updates the status of the availability of the mansion
+	if #spawnPoints == 1 then
+		isFull = true
+	else
+		isFull = false
+	end
+
 	return spawnPoints
 end
 

@@ -3,52 +3,44 @@ entity = {}
 -- All entities that currently exist in the map
 entities = {}
 
-globalAgitationTimer = 10
+local globalAgitationTimer = 10
+local spawnMusic = love.audio.newSource("entities/music/knocking.wav")
 
 local spawn = require("entities/code/tools/spawn")
 local movement = require("entities/code/tools/movement")
+local monster = require ("entities/code/tools/monster")
+local time = require ("entities/code/tools/time")
 
 function entity.load()
-	-- Adds 3 entity
+
+	-- Determine the chosen cycle the monster would spawn
+	entity.chosenCycle = nil
+
+	-- Add 3 starting entities
 	spawn.addEntity("frankenstein", entities)
 	spawn.addEntity("ghost", entities)
 	spawn.addEntity("witch", entities)
 
-	-- -- TEMPORARY
-	-- spawn.addEntity("ghost", entities)
-	-- spawn.addEntity("ghost", entities)
-	-- spawn.addEntity("witch", entities)
-
-	-- spawn.addEntity("witch", entities)
-	-- spawn.addEntity("ghost", entities)
-	-- spawn.addEntity("witch", entities)
 end
 
 function entity.update(dt)
+
+	-- If there's no chosen cycle and the mansion is not full, choose now
+	if entity.chosenCycle == nil and spawn.getStatus() == false then
+		local j = spawn.generateCycleSpawn()
+		entity.chosenCycle = time.getCycleCounter() + j
+	end
+
+	-- If the chosenCycle matches with the current cycle and it's in the middle of the day, spawn the monster
+	if entity.chosenCycle ~= nil and time.getCycleCounter() == entity.chosenCycle and time.getTimeCounter() == math.floor(time.getCycleLength()/2) then
+		entity.spawnMonster(monster.getAMonster())
+	end
+
 	-- TEMPORARY MOVEMENT (Currently all idle)
 	movement.movement(0, 0, entities, 1, dt)
 	movement.movement(0, 0, entities, 2, dt)
 	movement.movement(0, 0, entities, 3, dt)
 
-	-- movement.movement(0, 0, entities, 4, dt)
-	-- movement.movement(0, 0, entities, 5, dt)
-	-- movement.movement(0, 0, entities, 6, dt)
-
-	-- movement.movement(0, 0, entities, 7, dt)
-	-- movement.movement(0, 0, entities, 8, dt)
-	-- movement.movement(0, 0, entities, 9, dt)
-
-	-- movement.movement(math.random(0, 2), math.random(0, 2), entities, 1, dt)
-	-- movement.movement(math.random(0, 2), math.random(0, 2), entities, 2, dt)
-	-- movement.movement(math.random(0, 2), math.random(0, 2), entities, 3, dt)
-
-	-- movement.movement(math.random(0, 2), math.random(0, 2), entities, 4, dt)
-	-- movement.movement(math.random(0, 2), math.random(0, 2), entities, 5, dt)
-	-- movement.movement(math.random(0, 2), math.random(0, 2), entities, 6, dt)
-
-	-- movement.movement(math.random(0, 2), math.random(0, 2), entities, 7, dt)
-	-- movement.movement(math.random(0, 2), math.random(0, 2), entities, 8, dt)
-	-- movement.movement(math.random(0, 2), math.random(0, 2), entities, 9, dt)
 end
 
 function entity.draw()
@@ -57,21 +49,21 @@ function entity.draw()
 	end
 end
 
--- function entity.spawn(table, x, y, width, height)
--- 	local newent = table
--- 	newent.x = x
--- 	newent.y = y
--- 	newent.xvel = 0
--- 	newent.yvel = 0
---   newent.width = width
---   newent.height = height
--- 	newent.ID = ents
---   newent.agitation = 3
---   print ("agitation of frankenstein is " ..newent.agitation)
--- 	print ("ID of entity just spawned just now is " .. newent.ID)
--- 	ents = ents + 1
--- 	return newent
--- end
+
+-- Spawn monster and reset the chosen cycle
+function entity.spawnMonster(monster)
+	love.audio.play(spawnMusic)
+	spawn.addEntity(monster, entities)
+	entity.chosenCycle = nil
+end
+
+
+-- TEMPORARY
+function entity.getChosenCycle()
+	return entity.chosenCycle
+end
+
+
 
 function entity.incrementAgit(table)
   if(table.currentAgitation <= table.maxAgitation) then

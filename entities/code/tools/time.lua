@@ -28,14 +28,17 @@ function time.update(dt)
 	end
 end
 
+-- Return the current time of the currentcycle
 function time.getTimeCounter()
 	return time.counter2
 end
 
+-- Return which cycle the player is in
 function time.getCycleCounter()
 	return time.cycleCounter
 end
 
+-- Return the length of time that needs to pass before cycle resets
 function time.getCycleLength()
 	return time.cycleLength
 end

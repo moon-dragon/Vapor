@@ -66,7 +66,6 @@ end
 function fog.toggleLight(bool)
 	if bool and fog.timer > 0 then
 		fog.fogRadius = 300
-		-- print("Fog timer: " .. tostring(fog.timer) .. ", Fog Radius: " .. tostring(fog.fogRadius))
 	else
 		fog.fogRadius = 120
 	end

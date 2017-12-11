@@ -4,6 +4,9 @@ local player = require ("entities/code/player")
 local time = require ("entities/code/tools/time")
 local fog = require ("entities/code/tools/fogOfWar")
 
+-- TEMPORARY
+local entity = require ("entities/code/entity")
+
 function ui.load()
 
 	-- Load time
@@ -30,6 +33,9 @@ function ui.draw()
 	love.graphics.printf("Cycle: " .. time.getCycleCounter(), ui.cycleX, ui.cycleY, 1000, left)
 	love.graphics.printf("Health: " .. player.getHealth(), ui.healthX, ui.healthY, 1000, left)
 	love.graphics.printf("Candle Timer: " .. tostring(fog.getTimer()), 10, 140, 1000, left)
+
+	-- Show the next cycle a new monster would spawn
+	-- love.graphics.printf("Next monster: " .. tostring(entity.getChosenCycle()), 10, 180, 1000, left)
 
 end
 
