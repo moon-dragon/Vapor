@@ -19,7 +19,7 @@ end
 
 function fog.update(dt)
 	-- Activate fog of war mechanic every 4 cycle
-	fog.isFogOfWarActive = checkFog(2)
+	fog.isFogOfWarActive = checkFog(4)
 	if fog.isLightOn and fog.isFogOfWarActive then
 		counter = counter + 1
 		if counter % 101 >= 100 and fog.timer ~= 0 then

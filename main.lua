@@ -88,7 +88,7 @@ function love.draw()
 
 	--------------- USER INTERFACE -----------------
 	love.graphics.push()
-  	love.graphics.translate(ui.timeX, ui.timeY)
+  	love.graphics.translate(ui.posX, ui.posY)
   	
   	-- Draw the user interface
   	ui.draw()
@@ -148,7 +148,7 @@ function pickUpperScale(choice1, choice2)
 end
 
 function pickLowerScale(choice1, choice2)
-	if choice1 > choice2 then
+	if choice1 > choice2 then 
 		return choice1
 	else
 		return choice2
