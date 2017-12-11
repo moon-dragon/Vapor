@@ -7,7 +7,7 @@ local mansion = require ("entities/map/map")
 local anim = require ("entities/code/animation/player_anim")
 local collision = require ("entities/code/tools/collision")
 local isAWall, wallX, wallY, wallWidth, wallHeight = nil, nil, nil, nil, nil
-local upgradePoints = 1 --@Patrick don't know the specifics of your implementation but i'll go with this for now
+local upgradePoints = 0 --@Patrick don't know the specifics of your implementation but i'll go with this for now
 
 function player.load()
 	bullet.load()
