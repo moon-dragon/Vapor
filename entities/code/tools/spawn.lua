@@ -86,6 +86,21 @@ function spawn.draw_area(agitationArea)
         love.graphics.setColor(255, 255, 255, 255)
 end
 
+
+--Grow the entity's agitation area if at max agitation
+local growTimer = 0
+
+function spawn.grow_area(dt)
+  growTimer = growTimer - dt
+  if growTimer <= 0 then
+    for i,v in ipairs(entity.getEntities()) do
+      v.area.width = v.area.width + 50
+      v.area.height = v.area.height + 50
+    end
+    growTimer = growTimer + 2
+  end
+end
+  
 -- Draws the specified entity
 function spawn.drawEntity(entity)
 	-- Determines the index of the next animation

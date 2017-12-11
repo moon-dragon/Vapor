@@ -61,6 +61,14 @@ function entity.update(dt)
   end
 ]]
   entity.agitationDamageCheck(dt)
+  
+  for i,v in ipairs(entity.getEntities()) do
+    if v.currentAgitation == v.maxAgitation then
+      --print("hi")
+      spawn.grow_area(dt)
+      --print("hi")
+    end
+  end
 end
 
 function entity.draw()
