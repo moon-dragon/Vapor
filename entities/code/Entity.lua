@@ -30,6 +30,8 @@ function entity.update(dt)
 	movement.movement(0, 0, entities, 2, dt)
 	movement.movement(0, 0, entities, 3, dt)
 
+	wander(1)
+
 	-- movement.movement(0, 0, entities, 4, dt)
 	-- movement.movement(0, 0, entities, 5, dt)
 	-- movement.movement(0, 0, entities, 6, dt)
@@ -104,6 +106,19 @@ function entity.globalAgit(dt)
     globalAgitationTimer = globalAgitationTimer + 5
   end
 end
+
+
+function entity.teleport(id, x, y)
+	entities[id].x = x
+	entities[id].y = y
+	print("entity " + id + " teleported")
+end
+
+
+
+
+
+
 
 return entity
 

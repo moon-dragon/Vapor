@@ -2,7 +2,7 @@ local player = require ("entities.code.player")
 local map = require ("entities.code.mapcontrol")
 local entity = require ("entities.code.Entity")
 local ui = require ("entities.code.tools.ui")
-require ("entities.code.TestEnt")
+local ai = require("entities.code.tools.ai")
 
 
 function love.load()
@@ -27,8 +27,8 @@ function love.load()
 	-- Load the User Interface
 	ui.load()
 
-	-- testent.load()
-
+	-- Load the AI
+	ai.load()
 end
 
 function love.update(dt)
