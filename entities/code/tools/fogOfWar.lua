@@ -13,7 +13,7 @@ function fog.load()
 	-- Check if light is on
 	fog.isLightOn = false
 
-	fog.timer = 5
+	fog.timer = 7
 
 end
 
@@ -68,7 +68,7 @@ end
 
 function fog.toggleLight(bool)
 	if bool and fog.timer > 0 then
-		fog.fogRadius = 300
+		fog.fogRadius = 500
 	else
 		fog.fogRadius = 120
 	end
@@ -99,7 +99,7 @@ end
 
 --------------- HELPER FUNCTION -------------------
 function checkFog(cycle)
-	return (time.getCycleCounter() % cycle == 0 and time.getCycleCounter() ~= 0) and true or false
+	return (time.getCycleCounter() % cycle == 0 and time.getCycleCounter() > 10) and true or false
 end
 
 return fog
