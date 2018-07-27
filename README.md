@@ -2,13 +2,13 @@
 INF 125 Game Development
 To play game follow instructions below 
 
-Download Vapor.zip
+#Download Vapor.zip
 	- contains the code for the game 
 	- all code is written in Lua 
 	
-Website Link 
+#Website Link 
 	https://moon-dragon.github.io/VaporIncWebsite/
-love.js
+#love.js
 	To run & play our game follow the suggested instructions below: 	
 		we implemented a simple web server to run our game. 
 	1. Python 2.7 is a dependency and allows the simple web server to run. Please make sure you have 2.7 and not 3.5. 
