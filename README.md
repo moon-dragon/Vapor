@@ -1,17 +1,19 @@
 # Vapor
 INF 125 Game Development
-##To play game follow instructions below 
+To play game follow instructions below 
 
-##Download Vapor.zip
+Download Vapor.zip
 	- contains the code for the game 
 	- all code is written in Lua 
-##Website Link 
+	
+Website Link 
 	https://moon-dragon.github.io/VaporIncWebsite/
-##love.js
-	To run & play our game follow the suggested instructions below: 	we implemented a simple web server to run our game. 
-	1. Python 2.7 is a dependency and allows the simple web server to 	run. Please make sure you have 2.7 and not 3.5. 
-	2. From a console or terminal navigate to “love.js/Debug” 	folder. 
-	3. From here enter “python -m SimpleHTTPServer 8000” to run the 	server. 
+love.js
+	To run & play our game follow the suggested instructions below: 	
+		we implemented a simple web server to run our game. 
+	1. Python 2.7 is a dependency and allows the simple web server to run. Please make sure you have 2.7 and not 3.5. 
+	2. From a console or terminal navigate to “love.js/Debug” folder. 
+	3. From here enter “python -m SimpleHTTPServer 8000” to run the server. 
 	4. From a web browser, go to localhost:800 to view the game. 
 
 	Note: Google Chrome is not compatible, use Safari or another browser.
@@ -22,4 +24,4 @@ We utilized https://github.com/TannerRogalsky/love.js to help port our game to t
 instructions. 
 The love.js is the already packaged game and only needs to be run on a web server. 
 
-To contribute to the game download the love.js files
+To contribute to the game download the main.lua, config.lua and assets folder and add to your own project. 
